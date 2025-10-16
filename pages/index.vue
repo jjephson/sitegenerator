@@ -286,8 +286,8 @@
         <div class="footer-grid">
           <div class="footer-col">
             <div class="footer-brand">
-              <span class="brand-icon">🎨</span>
-              <span class="brand-name">OnePage AI Builder</span>
+              <Logo :width="32" :height="32" />
+              <span class="brand-name-footer">OnePage AI Builder</span>
             </div>
             <p class="footer-tagline">Build beautiful, accessible websites with the power of AI.</p>
           </div>
@@ -788,10 +788,13 @@ const handleLogout = async () => {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.brand-name-footer {
   font-size: 1.25rem;
   font-weight: 700;
   color: white;
-  margin-bottom: 1rem;
 }
 
 .footer-tagline {
