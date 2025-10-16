@@ -446,6 +446,33 @@ const generatePreviewHtml = (blocks) => {
     .contact h2 { text-align: center; font-size: 2.5rem; margin-bottom: 2rem; }
     .contact form { max-width: 600px; margin: 0 auto; }
     .contact input, .contact textarea { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 0.375rem; }
+    .logocloud { padding: 4rem 2rem; text-align: center; }
+    .logocloud h2 { font-size: 2rem; margin-bottom: 3rem; }
+    .logos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto; align-items: center; }
+    .logo-item { padding: 1rem; background: white; border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .team { padding: 4rem 2rem; }
+    .team h2 { text-align: center; font-size: 2.5rem; margin-bottom: 1rem; }
+    .team-desc { text-align: center; color: #6b7280; margin-bottom: 3rem; }
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+    .team-member { text-align: center; padding: 2rem; background: white; border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .team-member img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem; }
+    .stats { padding: 4rem 2rem; text-align: center; }
+    .stats h2 { font-size: 2rem; margin-bottom: 3rem; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
+    .stat-item { padding: 2rem; }
+    .stat-number { font-size: 3rem; font-weight: bold; margin-bottom: 0.5rem; }
+    .stat-label { font-size: 1rem; opacity: 0.9; }
+    .faq { padding: 4rem 2rem; max-width: 800px; margin: 0 auto; }
+    .faq h2 { text-align: center; font-size: 2.5rem; margin-bottom: 1rem; }
+    .faq-desc { text-align: center; color: #6b7280; margin-bottom: 3rem; }
+    .faq-item { margin-bottom: 1.5rem; padding: 1.5rem; background: white; border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .faq-question { font-weight: 600; font-size: 1.125rem; margin-bottom: 0.5rem; }
+    .faq-answer { color: #4b5563; line-height: 1.6; }
+    .newsletter { padding: 4rem 2rem; text-align: center; }
+    .newsletter h2 { font-size: 2rem; margin-bottom: 1rem; }
+    .newsletter form { max-width: 500px; margin: 2rem auto 0; display: flex; gap: 0.5rem; }
+    .newsletter input { flex: 1; padding: 0.75rem; border: 1px solid rgba(255,255,255,0.3); border-radius: 0.375rem; }
+    .newsletter button { padding: 0.75rem 2rem; border: none; border-radius: 0.375rem; font-weight: 600; cursor: pointer; }
     .footer { padding: 2rem; text-align: center; background: #111827; color: white; }
   </style>
 </head>
@@ -468,18 +495,23 @@ const renderBlockHtml = (block) => {
 
   switch (block.type) {
     case 'hero':
+      const heroStyle = content.bgImage 
+        ? `background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${content.bgImage}') center/cover; color: ${content.textColor};`
+        : `background-color: ${content.bgColor}; color: ${content.textColor};`
+      
       return `
-        <section class="hero">
+        <section class="hero" style="${heroStyle}">
+          ${content.logo ? `<img src="${content.logo}" alt="Logo" style="max-height: 60px; margin-bottom: 1.5rem;">` : ''}
           <h1>${content.title}</h1>
           <p>${content.subtitle}</p>
-          <a href="${content.buttonLink}" class="btn">${content.buttonText}</a>
+          <a href="${content.buttonLink}" class="btn" style="background-color: ${content.buttonBgColor}; color: ${content.buttonTextColor};">${content.buttonText}</a>
         </section>
       `
     
     case 'features':
       return `
-        <section class="features">
-          <h2>${content.title}</h2>
+        <section class="features" style="background-color: ${content.bgColor}; color: ${content.textColor};">
+          <h2 style="color: ${content.titleColor};">${content.title}</h2>
           <div class="features-grid">
             ${content.features.map(f => `
               <div class="feature">
@@ -494,22 +526,22 @@ const renderBlockHtml = (block) => {
     
     case 'cta':
       return `
-        <section class="cta">
+        <section class="cta" style="background-color: ${content.bgColor}; color: ${content.textColor};">
           <h2>${content.title}</h2>
           <p>${content.description}</p>
-          <a href="${content.buttonLink}" class="btn" style="margin-top: 1rem;">${content.buttonText}</a>
+          <a href="${content.buttonLink}" class="btn" style="margin-top: 1rem; background-color: ${content.buttonBgColor}; color: ${content.buttonTextColor};">${content.buttonText}</a>
         </section>
       `
     
     case 'pricing':
       return `
-        <section class="pricing">
-          <h2>${content.title}</h2>
+        <section class="pricing" style="background-color: ${content.bgColor}; color: ${content.textColor};">
+          <h2 style="color: ${content.titleColor};">${content.title}</h2>
           <div class="pricing-grid">
             ${content.plans.map(plan => `
               <div class="plan">
-                <h3>${plan.name}</h3>
-                <div class="plan-price">${plan.price}</div>
+                <h3 style="color: ${content.accentColor};">${plan.name}</h3>
+                <div class="plan-price" style="color: ${content.accentColor};">${plan.price}</div>
                 <ul style="list-style: none; padding: 0;">
                   ${plan.features.map(f => `<li style="margin: 0.5rem 0;">✓ ${f}</li>`).join('')}
                 </ul>
@@ -521,8 +553,8 @@ const renderBlockHtml = (block) => {
     
     case 'testimonials':
       return `
-        <section class="testimonials">
-          <h2>${content.title}</h2>
+        <section class="testimonials" style="background-color: ${content.bgColor}; color: ${content.textColor};">
+          <h2 style="color: ${content.titleColor};">${content.title}</h2>
           <div class="testimonials-grid">
             ${content.testimonials.map(t => `
               <div class="testimonial">
@@ -538,25 +570,102 @@ const renderBlockHtml = (block) => {
     
     case 'contact':
       return `
-        <section class="contact">
-          <h2>${content.title}</h2>
+        <section class="contact" style="background-color: ${content.bgColor}; color: ${content.textColor};">
+          <h2 style="color: ${content.titleColor};">${content.title}</h2>
           <p style="text-align: center; margin-bottom: 2rem;">${content.description}</p>
           <form>
             <input type="text" placeholder="Your Name" required>
             <input type="email" placeholder="Your Email" required>
             <textarea placeholder="Your Message" rows="5" required></textarea>
-            <button type="submit" class="btn" style="width: 100%;">Send Message</button>
+            <button type="submit" class="btn" style="width: 100%; background-color: ${content.buttonBgColor}; color: ${content.buttonTextColor};">Send Message</button>
+          </form>
+        </section>
+      `
+    
+    case 'logocloud':
+      return `
+        <section class="logocloud" style="background-color: ${content.bgColor}; color: ${content.textColor};">
+          <h2 style="color: ${content.titleColor};">${content.title}</h2>
+          <div class="logos-grid">
+            ${content.logos.map(logo => `
+              <div class="logo-item">
+                <img src="${logo.url}" alt="${logo.name}" style="max-width: 100%; height: auto;" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div style="display: none; padding: 1rem; color: #6b7280;">${logo.name}</div>
+              </div>
+            `).join('')}
+          </div>
+        </section>
+      `
+    
+    case 'team':
+      return `
+        <section class="team" style="background-color: ${content.bgColor}; color: ${content.textColor};">
+          <h2 style="color: ${content.titleColor};">${content.title}</h2>
+          <p class="team-desc">${content.description}</p>
+          <div class="team-grid">
+            ${content.members.map(member => `
+              <div class="team-member">
+                <img src="${member.image}" alt="${member.name}" onerror="this.src='https://via.placeholder.com/200'">
+                <h3>${member.name}</h3>
+                <p style="color: #6b7280; margin-bottom: 1rem;">${member.role}</p>
+                <p style="font-size: 0.875rem; line-height: 1.6;">${member.bio}</p>
+              </div>
+            `).join('')}
+          </div>
+        </section>
+      `
+    
+    case 'stats':
+      return `
+        <section class="stats" style="background-color: ${content.bgColor}; color: ${content.textColor};">
+          <h2>${content.title}</h2>
+          <div class="stats-grid">
+            ${content.stats.map(stat => `
+              <div class="stat-item">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">${stat.icon}</div>
+                <div class="stat-number" style="color: ${content.numberColor};">${stat.number}</div>
+                <div class="stat-label">${stat.label}</div>
+              </div>
+            `).join('')}
+          </div>
+        </section>
+      `
+    
+    case 'faq':
+      return `
+        <section class="faq" style="background-color: ${content.bgColor}; color: ${content.textColor};">
+          <h2 style="color: ${content.titleColor};">${content.title}</h2>
+          <p class="faq-desc">${content.description}</p>
+          <div>
+            ${content.faqs.map(faq => `
+              <div class="faq-item">
+                <div class="faq-question" style="color: ${content.questionColor};">${faq.question}</div>
+                <div class="faq-answer">${faq.answer}</div>
+              </div>
+            `).join('')}
+          </div>
+        </section>
+      `
+    
+    case 'newsletter':
+      return `
+        <section class="newsletter" style="background-color: ${content.bgColor}; color: ${content.textColor};">
+          <h2>${content.title}</h2>
+          <p style="opacity: 0.9; margin-bottom: 1rem;">${content.description}</p>
+          <form onsubmit="event.preventDefault(); alert('${content.successMessage}');">
+            <input type="email" placeholder="${content.placeholder}" required style="background-color: rgba(255,255,255,0.9);">
+            <button type="submit" style="background-color: ${content.buttonBgColor}; color: ${content.buttonTextColor};">${content.buttonText}</button>
           </form>
         </section>
       `
     
     case 'footer':
       return `
-        <footer class="footer">
+        <footer class="footer" style="background-color: ${content.bgColor}; color: ${content.textColor};">
           <p style="font-weight: 600; margin-bottom: 0.5rem;">${content.companyName}</p>
           <p style="margin-bottom: 1rem;">${content.copyright}</p>
           <div>
-            ${content.links.map(link => `<a href="${link.url}" style="color: white; margin: 0 1rem; text-decoration: none;">${link.text}</a>`).join('')}
+            ${content.links.map(link => `<a href="${link.url}" style="color: ${content.linkColor}; margin: 0 1rem; text-decoration: none;">${link.text}</a>`).join('')}
           </div>
         </footer>
       `
