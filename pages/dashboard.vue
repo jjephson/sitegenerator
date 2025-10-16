@@ -782,23 +782,14 @@ watch(
 
 // Initialize on mount
 onMounted(() => {
-  // Try to restore from localStorage
+  // Automatically restore from localStorage (silently)
   const draft = loadFromLocalStorage()
   if (draft) {
-    const shouldRestore = confirm(
-      '📝 Found unsaved work from your last session. Would you like to restore it?'
-    )
-    
-    if (shouldRestore) {
-      builderStore.projectName = draft.projectName || 'My OnePage App'
-      builderStore.projectId = draft.projectId || null
-      builderStore.headerBlock = draft.headerBlock || null
-      builderStore.contentBlocks = draft.contentBlocks || []
-      builderStore.footerBlock = draft.footerBlock || null
-      showStatus('✓ Draft restored from your last session', 'success')
-    } else {
-      clearLocalStorage()
-    }
+    builderStore.projectName = draft.projectName || 'My OnePage App'
+    builderStore.projectId = draft.projectId || null
+    builderStore.headerBlock = draft.headerBlock || null
+    builderStore.contentBlocks = draft.contentBlocks || []
+    builderStore.footerBlock = draft.footerBlock || null
   }
   
   // Start auto-save timer
