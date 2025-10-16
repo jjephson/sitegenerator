@@ -178,16 +178,36 @@ const saveProject = async () => {
   const projectData = builderStore.exportProjectData()
   
   try {
-    const { data, error } = await supabase
-      .from('projects')
-      .upsert({
-        id: builderStore.projectId,
-        user_id: user.value.id,
-        name: builderStore.projectName,
-        data: projectData,
-        updated_at: new Date().toISOString()
-      })
-      .select()
+    let data, error
+    
+    if (builderStore.projectId) {
+      // Update existing project
+      const result = await supabase
+        .from('projects')
+        .update({
+          name: builderStore.projectName,
+          data: projectData,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', builderStore.projectId)
+        .select()
+      
+      data = result.data
+      error = result.error
+    } else {
+      // Insert new project
+      const result = await supabase
+        .from('projects')
+        .insert({
+          user_id: user.value.id,
+          name: builderStore.projectName,
+          data: projectData
+        })
+        .select()
+      
+      data = result.data
+      error = result.error
+    }
 
     if (error) throw error
 
