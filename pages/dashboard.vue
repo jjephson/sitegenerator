@@ -85,34 +85,78 @@
             @drop="handleDrop"
             @dragover.prevent
           >
-            <div v-if="builderStore.blocks.length === 0" style="text-align: center; color: var(--text-gray); padding: 3rem;">
+            <!-- Empty State -->
+            <div v-if="!builderStore.headerBlock && builderStore.contentBlocks.length === 0 && !builderStore.footerBlock" style="text-align: center; color: var(--text-gray); padding: 3rem;">
               <div style="font-size: 3rem; margin-bottom: 1rem;">📋</div>
               <p>Drag blocks here or click on them to start building</p>
             </div>
 
-            <div
-              v-for="(block, index) in builderStore.blocks"
-              :key="block.id"
-              class="canvas-block"
-              :class="{ 'selected': builderStore.selectedBlockId === block.id }"
-              @click="builderStore.selectBlock(block.id)"
-            >
-              <div class="block-actions">
-                <button @click.stop="builderStore.moveBlockUp(block.id)" class="btn btn-sm btn-outline" title="Move Up">
-                  ↑
-                </button>
-                <button @click.stop="builderStore.moveBlockDown(block.id)" class="btn btn-sm btn-outline" title="Move Down">
-                  ↓
-                </button>
-                <button @click.stop="editBlock(block)" class="btn btn-sm btn-secondary" title="Edit">
-                  ✏️
-                </button>
-                <button @click.stop="builderStore.removeBlock(block.id)" class="btn btn-sm btn-danger" title="Delete">
-                  🗑️
-                </button>
+            <!-- Header Block (Fixed at Top) -->
+            <div v-if="builderStore.headerBlock" class="canvas-section">
+              <div class="section-label">Header (Always at Top)</div>
+              <div
+                class="canvas-block header-block"
+                :class="{ 'selected': builderStore.selectedBlockId === builderStore.headerBlock.id }"
+                @click="builderStore.selectBlock(builderStore.headerBlock.id)"
+              >
+                <div class="block-actions">
+                  <button @click.stop="editBlock(builderStore.headerBlock)" class="btn btn-sm btn-secondary" title="Edit">
+                    ✏️
+                  </button>
+                  <button @click.stop="builderStore.removeBlock(builderStore.headerBlock.id)" class="btn btn-sm btn-danger" title="Remove Header">
+                    🗑️
+                  </button>
+                </div>
+                <BlockRenderer :block="builderStore.headerBlock" />
               </div>
+            </div>
 
-              <BlockRenderer :block="block" />
+            <!-- Content Blocks (Draggable) -->
+            <div v-if="builderStore.contentBlocks.length > 0" class="canvas-section">
+              <div class="section-label">Content Blocks</div>
+              <div
+                v-for="block in builderStore.contentBlocks"
+                :key="block.id"
+                class="canvas-block"
+                :class="{ 'selected': builderStore.selectedBlockId === block.id }"
+                @click="builderStore.selectBlock(block.id)"
+              >
+                <div class="block-actions">
+                  <button @click.stop="builderStore.moveBlockUp(block.id)" class="btn btn-sm btn-outline" title="Move Up">
+                    ↑
+                  </button>
+                  <button @click.stop="builderStore.moveBlockDown(block.id)" class="btn btn-sm btn-outline" title="Move Down">
+                    ↓
+                  </button>
+                  <button @click.stop="editBlock(block)" class="btn btn-sm btn-secondary" title="Edit">
+                    ✏️
+                  </button>
+                  <button @click.stop="builderStore.removeBlock(block.id)" class="btn btn-sm btn-danger" title="Delete">
+                    🗑️
+                  </button>
+                </div>
+                <BlockRenderer :block="block" />
+              </div>
+            </div>
+
+            <!-- Footer Block (Fixed at Bottom) -->
+            <div v-if="builderStore.footerBlock" class="canvas-section">
+              <div class="section-label">Footer (Always at Bottom)</div>
+              <div
+                class="canvas-block footer-block"
+                :class="{ 'selected': builderStore.selectedBlockId === builderStore.footerBlock.id }"
+                @click="builderStore.selectBlock(builderStore.footerBlock.id)"
+              >
+                <div class="block-actions">
+                  <button @click.stop="editBlock(builderStore.footerBlock)" class="btn btn-sm btn-secondary" title="Edit">
+                    ✏️
+                  </button>
+                  <button @click.stop="builderStore.removeBlock(builderStore.footerBlock.id)" class="btn btn-sm btn-danger" title="Remove Footer">
+                    🗑️
+                  </button>
+                </div>
+                <BlockRenderer :block="builderStore.footerBlock" />
+              </div>
             </div>
           </div>
         </div>
@@ -175,7 +219,7 @@ const statusMessage = ref('')
 const statusType = ref('info')
 
 const previewHtml = computed(() => {
-  return generatePreviewHtml(builderStore.blocks)
+  return generatePreviewHtml(builderStore.allBlocks)
 })
 
 // Drag and drop handlers
@@ -549,9 +593,33 @@ const renderBlockHtml = (block) => {
   gap: 0.75rem;
 }
 
+.canvas-section {
+  margin-bottom: 2rem;
+}
+
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #6b7280;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+  padding: 0.5rem;
+  background-color: #f3f4f6;
+  border-radius: 0.375rem;
+}
+
 .canvas-block.selected {
   border-color: var(--primary-color);
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.canvas-block.header-block {
+  border-left: 4px solid #4338ca;
+}
+
+.canvas-block.footer-block {
+  border-left: 4px solid #7c3aed;
 }
 
 .status-message {

@@ -4,7 +4,9 @@ export const useBuilderStore = defineStore('builder', {
   state: () => ({
     projectName: 'My OnePage App',
     projectId: null,
-    blocks: [],
+    headerBlock: null,
+    contentBlocks: [],
+    footerBlock: null,
     selectedBlockId: null,
     availableBlocks: [
       {
@@ -129,13 +131,28 @@ export const useBuilderStore = defineStore('builder', {
   }),
 
   getters: {
+    allBlocks: (state) => {
+      const blocks = []
+      if (state.headerBlock) blocks.push(state.headerBlock)
+      blocks.push(...state.contentBlocks)
+      if (state.footerBlock) blocks.push(state.footerBlock)
+      return blocks
+    },
+    
     selectedBlock: (state) => {
-      return state.blocks.find(block => block.id === state.selectedBlockId)
+      if (state.headerBlock?.id === state.selectedBlockId) return state.headerBlock
+      if (state.footerBlock?.id === state.selectedBlockId) return state.footerBlock
+      return state.contentBlocks.find(block => block.id === state.selectedBlockId)
     },
     
     getBlockById: (state) => (id) => {
-      return state.blocks.find(block => block.id === id)
-    }
+      if (state.headerBlock?.id === id) return state.headerBlock
+      if (state.footerBlock?.id === id) return state.footerBlock
+      return state.contentBlocks.find(block => block.id === id)
+    },
+    
+    hasHeader: (state) => !!state.headerBlock,
+    hasFooter: (state) => !!state.footerBlock
   },
 
   actions: {
@@ -150,42 +167,74 @@ export const useBuilderStore = defineStore('builder', {
         content: JSON.parse(JSON.stringify(template.defaultContent))
       }
 
-      this.blocks.push(newBlock)
+      // Hero blocks go to header (only one allowed)
+      if (blockType === 'hero') {
+        this.headerBlock = newBlock
+      }
+      // Footer blocks go to footer (only one allowed)
+      else if (blockType === 'footer') {
+        this.footerBlock = newBlock
+      }
+      // All other blocks go to content
+      else {
+        this.contentBlocks.push(newBlock)
+      }
+      
       this.selectedBlockId = newBlock.id
     },
 
     removeBlock(blockId) {
-      const index = this.blocks.findIndex(b => b.id === blockId)
-      if (index > -1) {
-        this.blocks.splice(index, 1)
-        if (this.selectedBlockId === blockId) {
-          this.selectedBlockId = null
+      // Check if it's the header
+      if (this.headerBlock?.id === blockId) {
+        this.headerBlock = null
+      }
+      // Check if it's the footer
+      else if (this.footerBlock?.id === blockId) {
+        this.footerBlock = null
+      }
+      // Otherwise, remove from content blocks
+      else {
+        const index = this.contentBlocks.findIndex(b => b.id === blockId)
+        if (index > -1) {
+          this.contentBlocks.splice(index, 1)
         }
+      }
+      
+      if (this.selectedBlockId === blockId) {
+        this.selectedBlockId = null
       }
     },
 
     updateBlockContent(blockId, content) {
-      const block = this.blocks.find(b => b.id === blockId)
-      if (block) {
-        block.content = { ...block.content, ...content }
+      if (this.headerBlock?.id === blockId) {
+        this.headerBlock.content = { ...this.headerBlock.content, ...content }
+      } else if (this.footerBlock?.id === blockId) {
+        this.footerBlock.content = { ...this.footerBlock.content, ...content }
+      } else {
+        const block = this.contentBlocks.find(b => b.id === blockId)
+        if (block) {
+          block.content = { ...block.content, ...content }
+        }
       }
     },
 
     moveBlockUp(blockId) {
-      const index = this.blocks.findIndex(b => b.id === blockId)
+      // Only move content blocks (header/footer are fixed)
+      const index = this.contentBlocks.findIndex(b => b.id === blockId)
       if (index > 0) {
-        const temp = this.blocks[index]
-        this.blocks[index] = this.blocks[index - 1]
-        this.blocks[index - 1] = temp
+        const temp = this.contentBlocks[index]
+        this.contentBlocks[index] = this.contentBlocks[index - 1]
+        this.contentBlocks[index - 1] = temp
       }
     },
 
     moveBlockDown(blockId) {
-      const index = this.blocks.findIndex(b => b.id === blockId)
-      if (index < this.blocks.length - 1 && index > -1) {
-        const temp = this.blocks[index]
-        this.blocks[index] = this.blocks[index + 1]
-        this.blocks[index + 1] = temp
+      // Only move content blocks (header/footer are fixed)
+      const index = this.contentBlocks.findIndex(b => b.id === blockId)
+      if (index < this.contentBlocks.length - 1 && index > -1) {
+        const temp = this.contentBlocks[index]
+        this.contentBlocks[index] = this.contentBlocks[index + 1]
+        this.contentBlocks[index + 1] = temp
       }
     },
 
@@ -208,14 +257,29 @@ export const useBuilderStore = defineStore('builder', {
     loadProject(projectData) {
       this.projectName = projectData.name || 'My OnePage App'
       this.projectId = projectData.id || null
-      this.blocks = projectData.blocks || []
+      
+      // Handle legacy format (old saves with single blocks array)
+      if (projectData.blocks && !projectData.headerBlock) {
+        const blocks = projectData.blocks || []
+        this.headerBlock = blocks.find(b => b.type === 'hero') || null
+        this.footerBlock = blocks.find(b => b.type === 'footer') || null
+        this.contentBlocks = blocks.filter(b => b.type !== 'hero' && b.type !== 'footer')
+      } else {
+        // New format
+        this.headerBlock = projectData.headerBlock || null
+        this.contentBlocks = projectData.contentBlocks || []
+        this.footerBlock = projectData.footerBlock || null
+      }
+      
       this.selectedBlockId = null
     },
 
     resetProject() {
       this.projectName = 'My OnePage App'
       this.projectId = null
-      this.blocks = []
+      this.headerBlock = null
+      this.contentBlocks = []
+      this.footerBlock = null
       this.selectedBlockId = null
     },
 
@@ -223,7 +287,9 @@ export const useBuilderStore = defineStore('builder', {
       return {
         id: this.projectId,
         name: this.projectName,
-        blocks: this.blocks,
+        headerBlock: this.headerBlock,
+        contentBlocks: this.contentBlocks,
+        footerBlock: this.footerBlock,
         exportedAt: new Date().toISOString()
       }
     }
