@@ -1,7 +1,10 @@
 <template>
   <div class="landing-page">
+    <!-- Skip to main content for keyboard users -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
     <!-- Navigation -->
-    <nav class="landing-nav">
+    <nav class="landing-nav" role="navigation" aria-label="Main navigation">
       <div class="container">
         <div class="nav-content">
           <div class="nav-brand">
@@ -9,18 +12,25 @@
             <span class="brand-name">OnePage AI Builder</span>
           </div>
           <div class="nav-actions">
-            <NuxtLink to="/login" class="nav-link">Sign In</NuxtLink>
-            <NuxtLink to="/login" class="btn btn-primary">Get Started Free</NuxtLink>
+            <template v-if="user">
+              <NuxtLink to="/dashboard" class="nav-link">Dashboard</NuxtLink>
+              <button @click="handleLogout" class="btn btn-outline">Logout</button>
+            </template>
+            <template v-else>
+              <NuxtLink to="/login" class="nav-link">Sign In</NuxtLink>
+              <NuxtLink to="/login" class="btn btn-primary">Get Started Free</NuxtLink>
+            </template>
           </div>
         </div>
       </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-landing">
+    <main id="main-content">
+    <section class="hero-landing" aria-labelledby="hero-title">
       <div class="container">
         <div class="hero-content">
-          <h1 class="hero-title">
+          <h1 id="hero-title" class="hero-title">
             Build Beautiful One-Page Websites with
             <span class="gradient-text">AI-Powered Design</span>
           </h1>
@@ -59,10 +69,10 @@
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="features-section">
+    <section id="features" class="features-section" aria-labelledby="features-title">
       <div class="container">
         <div class="section-header">
-          <h2 class="section-title">Everything You Need to Build Stunning Pages</h2>
+          <h2 id="features-title" class="section-title">Everything You Need to Build Stunning Pages</h2>
           <p class="section-subtitle">
             A complete platform with powerful features designed for creators, businesses, and agencies.
           </p>
@@ -268,8 +278,10 @@
       </div>
     </section>
 
+    </main>
+    
     <!-- Footer -->
-    <footer class="landing-footer">
+    <footer class="landing-footer" role="contentinfo">
       <div class="container">
         <div class="footer-grid">
           <div class="footer-col">
@@ -321,14 +333,13 @@
 </template>
 
 <script setup>
-const { user, getSession } = useSupabase()
+const { user, signOut } = useSupabase()
+const router = useRouter()
 
-onMounted(async () => {
-  const { data } = await getSession()
-  if (data.session) {
-    navigateTo('/dashboard')
-  }
-})
+const handleLogout = async () => {
+  await signOut()
+  user.value = null
+}
 </script>
 
 <style scoped>
@@ -882,9 +893,39 @@ onMounted(async () => {
   }
 }
 
+/* Skip Link for Accessibility */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: #4338ca;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  z-index: 1000;
+  border-radius: 0 0 0.5rem 0;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 3px solid #7c3aed;
+  outline-offset: 2px;
+}
+
 /* Smooth Scroll */
 html {
   scroll-behavior: smooth;
+}
+
+/* Reduced Motion for Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Button Enhancements */
