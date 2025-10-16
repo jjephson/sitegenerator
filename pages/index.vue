@@ -425,9 +425,8 @@
           <div class="footer-col">
             <h2>Resources</h2>
             <ul class="footer-links">
-              <li><NuxtLink to="/quickstart">Quick Start</NuxtLink></li>
               <li><NuxtLink to="/documentation">Documentation</NuxtLink></li>
-              <li><NuxtLink to="/testing">Testing Guide</NuxtLink></li>
+              <li><NuxtLink to="/accessibility">Accessibility</NuxtLink></li>
               <li><a href="https://github.com/jjephson/sitegenerator" target="_blank">GitHub</a></li>
             </ul>
           </div>
