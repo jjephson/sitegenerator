@@ -82,7 +82,7 @@
           <div class="feature-card">
             <div class="feature-icon-large">🎯</div>
             <h3>Drag & Drop Builder</h3>
-            <p>Intuitive visual editor with 7+ pre-built blocks. Create professional layouts in minutes without writing a single line of code.</p>
+            <p>Intuitive visual editor with 12+ pre-built blocks. Create professional layouts in minutes without writing a single line of code.</p>
           </div>
 
           <div class="feature-card">
@@ -129,7 +129,7 @@
           <div class="step-card">
             <div class="step-number">1</div>
             <h3>Choose & Customize Blocks</h3>
-            <p>Pick from Hero, Features, Pricing, Testimonials, Contact, and more. Drag them onto your canvas and customize every detail with our visual editor.</p>
+            <p>Pick from 12 professional blocks: Hero, Features, Pricing, Team, Stats, FAQ, Newsletter, and more. Drag them onto your canvas and customize every detail.</p>
           </div>
 
           <div class="step-card">
@@ -151,7 +151,7 @@
     <section class="blocks-showcase">
       <div class="container">
         <div class="section-header">
-          <h2 class="section-title">7 Professional Blocks Ready to Use</h2>
+          <h2 class="section-title">12 Professional Blocks Ready to Use</h2>
           <p class="section-subtitle">Every block is fully customizable and accessible</p>
         </div>
 
@@ -190,6 +190,36 @@
             <div class="block-icon">📧</div>
             <h3>Contact Forms</h3>
             <p>Professional contact sections to connect with visitors</p>
+          </div>
+
+          <div class="block-showcase-item">
+            <div class="block-icon">🏢</div>
+            <h3>Logo Cloud</h3>
+            <p>Display trusted partner and client company logos in style</p>
+          </div>
+
+          <div class="block-showcase-item">
+            <div class="block-icon">👥</div>
+            <h3>Team Section</h3>
+            <p>Showcase your team members with photos, roles, and bios</p>
+          </div>
+
+          <div class="block-showcase-item">
+            <div class="block-icon">📊</div>
+            <h3>Statistics</h3>
+            <p>Highlight impressive metrics and key numbers with impact</p>
+          </div>
+
+          <div class="block-showcase-item">
+            <div class="block-icon">❓</div>
+            <h3>FAQ Section</h3>
+            <p>Answer common questions and reduce support inquiries</p>
+          </div>
+
+          <div class="block-showcase-item">
+            <div class="block-icon">📮</div>
+            <h3>Newsletter Signup</h3>
+            <p>Capture emails and grow your subscriber list effortlessly</p>
           </div>
 
           <div class="block-showcase-item">
@@ -245,7 +275,7 @@
           <div class="column-visual">
             <div class="visual-box">
               <div class="visual-stat">
-                <div class="stat-number">7+</div>
+                <div class="stat-number">12+</div>
                 <div class="stat-label">Pre-built Blocks</div>
               </div>
               <div class="visual-stat">
@@ -258,6 +288,84 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section" id="pricing">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Simple, Transparent Pricing</h2>
+          <p class="section-subtitle">Choose the perfect plan for your needs. All plans include core features.</p>
+        </div>
+
+        <div class="pricing-grid-landing">
+          <div class="pricing-card">
+            <div class="pricing-badge">Perfect to Start</div>
+            <h3 class="pricing-plan-name">Basic</h3>
+            <div class="pricing-price">
+              <span class="price-currency">$</span>
+              <span class="price-amount">0</span>
+              <span class="price-period">/month</span>
+            </div>
+            <p class="pricing-description">Everything you need to build your first page</p>
+            <ul class="pricing-features">
+              <li><span class="feature-check">✓</span> All 12 blocks available</li>
+              <li><span class="feature-check">✓</span> WCAG AA compliance</li>
+              <li><span class="feature-check">✓</span> Live preview</li>
+              <li><span class="feature-check">✓</span> Export as ZIP</li>
+              <li><span class="feature-check">✓</span> 1 project</li>
+              <li><span class="feature-check">✓</span> Community support</li>
+            </ul>
+            <NuxtLink to="/login" class="btn btn-outline pricing-btn">Get Started Free</NuxtLink>
+          </div>
+
+          <div class="pricing-card pricing-card-featured">
+            <div class="pricing-badge pricing-badge-featured">Most Popular</div>
+            <h3 class="pricing-plan-name">Pro</h3>
+            <div class="pricing-price">
+              <span class="price-currency">$</span>
+              <span class="price-amount">19</span>
+              <span class="price-period">/month</span>
+            </div>
+            <p class="pricing-description">For professionals and growing businesses</p>
+            <ul class="pricing-features">
+              <li><span class="feature-check">✓</span> Everything in Basic</li>
+              <li><span class="feature-check">✓</span> Unlimited projects</li>
+              <li><span class="feature-check">✓</span> AI content generation</li>
+              <li><span class="feature-check">✓</span> GitHub Pages deploy</li>
+              <li><span class="feature-check">✓</span> Custom domains</li>
+              <li><span class="feature-check">✓</span> Priority support</li>
+              <li><span class="feature-check">✓</span> Remove branding</li>
+            </ul>
+            <NuxtLink to="/login" class="btn btn-primary pricing-btn">Start Pro Trial</NuxtLink>
+          </div>
+
+          <div class="pricing-card">
+            <div class="pricing-badge">For Teams</div>
+            <h3 class="pricing-plan-name">Business</h3>
+            <div class="pricing-price">
+              <span class="price-currency">$</span>
+              <span class="price-amount">49</span>
+              <span class="price-period">/month</span>
+            </div>
+            <p class="pricing-description">Advanced features for agencies and teams</p>
+            <ul class="pricing-features">
+              <li><span class="feature-check">✓</span> Everything in Pro</li>
+              <li><span class="feature-check">✓</span> Team collaboration (5 users)</li>
+              <li><span class="feature-check">✓</span> White-label options</li>
+              <li><span class="feature-check">✓</span> Advanced analytics</li>
+              <li><span class="feature-check">✓</span> Custom integrations</li>
+              <li><span class="feature-check">✓</span> Dedicated support</li>
+              <li><span class="feature-check">✓</span> SLA guarantee</li>
+            </ul>
+            <NuxtLink to="/login" class="btn btn-outline pricing-btn">Contact Sales</NuxtLink>
+          </div>
+        </div>
+
+        <div class="pricing-footer">
+          <p>🎉 All plans come with a 14-day free trial • No credit card required</p>
         </div>
       </div>
     </section>
@@ -930,6 +1038,145 @@ const handleLogout = async () => {
 /* Smooth Scroll */
 html {
   scroll-behavior: smooth;
+}
+
+/* Pricing Section */
+.pricing-section {
+  padding: 5rem 0;
+  background-color: #f9fafb;
+}
+
+.pricing-grid-landing {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pricing-card {
+  background-color: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  position: relative;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+
+.pricing-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.pricing-card-featured {
+  border-color: #4338ca;
+  border-width: 3px;
+  box-shadow: 0 10px 15px -3px rgba(67, 56, 202, 0.2);
+}
+
+.pricing-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #f3f4f6;
+  color: #4b5563;
+  padding: 0.375rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: 2px solid #e5e7eb;
+}
+
+.pricing-badge-featured {
+  background: linear-gradient(135deg, #4338ca 0%, #7c3aed 100%);
+  color: white;
+  border-color: #4338ca;
+}
+
+.pricing-plan-name {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 1.5rem 0 1rem;
+  text-align: center;
+}
+
+.pricing-price {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.price-currency {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #6b7280;
+  vertical-align: super;
+}
+
+.price-amount {
+  font-size: 4rem;
+  font-weight: 800;
+  color: #111827;
+  line-height: 1;
+}
+
+.price-period {
+  font-size: 1.125rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.pricing-description {
+  text-align: center;
+  color: #6b7280;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem;
+  flex-grow: 1;
+}
+
+.pricing-features li {
+  padding: 0.75rem 0;
+  color: #4b5563;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.9375rem;
+}
+
+.feature-check {
+  color: #10b981;
+  font-weight: 700;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.pricing-btn {
+  width: 100%;
+  text-align: center;
+  padding: 0.875rem 1.5rem;
+  font-size: 1rem;
+}
+
+.pricing-footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.pricing-footer p {
+  font-size: 1rem;
+  color: #6b7280;
+  font-weight: 500;
 }
 
 /* Reduced Motion for Accessibility */
