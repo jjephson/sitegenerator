@@ -46,15 +46,20 @@
 
       <div class="block-list">
         <div
-          v-for="block in builderStore.availableBlocks"
+          v-for="block in builderStore.availableBlocksByAccess"
           :key="block.id"
           class="draggable-block"
-          draggable="true"
-          @dragstart="handleDragStart(block)"
-          @click="addBlockToCanvas(block.type)"
+          :class="{ 'locked': block.isLocked }"
+          :draggable="!block.isLocked"
+          @dragstart="!block.isLocked && handleDragStart(block)"
+          @click="handleBlockClick(block)"
         >
           <div style="font-size: 1.5rem; margin-bottom: 0.25rem;">{{ block.icon }}</div>
           <div style="font-weight: 500; font-size: 0.875rem;">{{ block.name }}</div>
+          <div v-if="block.accessLevel !== 'basic'" class="access-badge" :class="block.accessLevel">
+            {{ block.accessLevel.toUpperCase() }}
+          </div>
+          <div v-if="block.isLocked" class="lock-icon">🔒</div>
         </div>
       </div>
     </div>
@@ -236,6 +241,15 @@ const handleDrop = () => {
 
 const addBlockToCanvas = (blockType) => {
   builderStore.addBlock(blockType)
+}
+
+const handleBlockClick = (block) => {
+  if (block.isLocked) {
+    showStatus(`🔒 ${block.name} requires ${block.accessLevel.toUpperCase()} plan. Upgrade to unlock!`, 'info')
+    return
+  }
+  
+  addBlockToCanvas(block.type)
 }
 
 const editBlock = (block) => {
@@ -620,6 +634,50 @@ const renderBlockHtml = (block) => {
 
 .canvas-block.footer-block {
   border-left: 4px solid #7c3aed;
+}
+
+/* Access Level Badges and Locked State */
+.draggable-block {
+  position: relative;
+}
+
+.draggable-block.locked {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.draggable-block.locked:hover {
+  border-color: var(--border-color);
+  background-color: var(--bg-light);
+}
+
+.access-badge {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  letter-spacing: 0.05em;
+}
+
+.access-badge.pro {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.access-badge.business {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.lock-icon {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  font-size: 1.25rem;
+  opacity: 0.5;
 }
 
 .status-message {

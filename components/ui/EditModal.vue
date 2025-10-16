@@ -298,6 +298,146 @@
           />
         </div>
 
+        <!-- Logo Cloud Block -->
+        <div v-else-if="block.type === 'logocloud'">
+          <div class="form-group">
+            <label class="form-label">Title</label>
+            <input v-model="formData.title" type="text" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Company Logos</label>
+            <div v-for="(logo, idx) in formData.logos" :key="idx" class="flex gap-1 mb-1">
+              <input v-model="logo.name" type="text" placeholder="Company Name" class="form-input" style="flex: 1;" />
+              <input v-model="logo.url" type="url" placeholder="Logo URL" class="form-input" style="flex: 2;" />
+              <button @click="removeLogo(idx)" class="btn btn-sm btn-danger">-</button>
+            </div>
+            <button @click="addLogo" class="btn btn-sm btn-secondary mt-1">+ Add Logo</button>
+          </div>
+          
+          <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border-color);">
+          <h3 style="margin-bottom: 1rem; font-size: 1rem; font-weight: 600;">Styling Options</h3>
+          
+          <ColorPicker v-model="formData.bgColor" label="Background Color" />
+          <ColorPicker v-model="formData.titleColor" label="Title Color" :checkContrast="true" :contrastWith="formData.bgColor" />
+          <ColorPicker v-model="formData.textColor" label="Text Color" :checkContrast="true" :contrastWith="formData.bgColor" />
+        </div>
+
+        <!-- Team Block -->
+        <div v-else-if="block.type === 'team'">
+          <div class="form-group">
+            <label class="form-label">Title</label>
+            <input v-model="formData.title" type="text" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea v-model="formData.description" class="form-input"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Team Members</label>
+            <div v-for="(member, idx) in formData.members" :key="idx" class="card mb-1">
+              <input v-model="member.name" type="text" placeholder="Name" class="form-input mb-1" />
+              <input v-model="member.role" type="text" placeholder="Role/Title" class="form-input mb-1" />
+              <input v-model="member.image" type="url" placeholder="Photo URL" class="form-input mb-1" />
+              <textarea v-model="member.bio" placeholder="Short Bio" class="form-input mb-1" rows="2"></textarea>
+              <button @click="removeMember(idx)" class="btn btn-sm btn-danger">Remove Member</button>
+            </div>
+            <button @click="addMember" class="btn btn-sm btn-secondary">+ Add Team Member</button>
+          </div>
+          
+          <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border-color);">
+          <h3 style="margin-bottom: 1rem; font-size: 1rem; font-weight: 600;">Styling Options</h3>
+          
+          <ColorPicker v-model="formData.bgColor" label="Background Color" />
+          <ColorPicker v-model="formData.titleColor" label="Title Color" :checkContrast="true" :contrastWith="formData.bgColor" />
+          <ColorPicker v-model="formData.textColor" label="Text Color" :checkContrast="true" :contrastWith="formData.bgColor" />
+        </div>
+
+        <!-- Stats Block -->
+        <div v-else-if="block.type === 'stats'">
+          <div class="form-group">
+            <label class="form-label">Title</label>
+            <input v-model="formData.title" type="text" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Statistics</label>
+            <div v-for="(stat, idx) in formData.stats" :key="idx" class="flex gap-1 mb-1">
+              <input v-model="stat.icon" type="text" placeholder="Icon" class="form-input" style="width: 60px;" />
+              <input v-model="stat.number" type="text" placeholder="Number" class="form-input" style="flex: 1;" />
+              <input v-model="stat.label" type="text" placeholder="Label" class="form-input" style="flex: 2;" />
+              <button @click="removeStat(idx)" class="btn btn-sm btn-danger">-</button>
+            </div>
+            <button @click="addStat" class="btn btn-sm btn-secondary mt-1">+ Add Stat</button>
+          </div>
+          
+          <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border-color);">
+          <h3 style="margin-bottom: 1rem; font-size: 1rem; font-weight: 600;">Styling Options</h3>
+          
+          <ColorPicker v-model="formData.bgColor" label="Background Color" />
+          <ColorPicker v-model="formData.textColor" label="Text Color" :checkContrast="true" :contrastWith="formData.bgColor" />
+          <ColorPicker v-model="formData.numberColor" label="Number Color" :checkContrast="true" :contrastWith="formData.bgColor" />
+        </div>
+
+        <!-- FAQ Block -->
+        <div v-else-if="block.type === 'faq'">
+          <div class="form-group">
+            <label class="form-label">Title</label>
+            <input v-model="formData.title" type="text" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea v-model="formData.description" class="form-input"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Questions & Answers</label>
+            <div v-for="(faq, idx) in formData.faqs" :key="idx" class="card mb-1">
+              <input v-model="faq.question" type="text" placeholder="Question" class="form-input mb-1" />
+              <textarea v-model="faq.answer" placeholder="Answer" class="form-input mb-1" rows="3"></textarea>
+              <button @click="removeFaq(idx)" class="btn btn-sm btn-danger">Remove FAQ</button>
+            </div>
+            <button @click="addFaq" class="btn btn-sm btn-secondary">+ Add FAQ</button>
+          </div>
+          
+          <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border-color);">
+          <h3 style="margin-bottom: 1rem; font-size: 1rem; font-weight: 600;">Styling Options</h3>
+          
+          <ColorPicker v-model="formData.bgColor" label="Background Color" />
+          <ColorPicker v-model="formData.titleColor" label="Title Color" :checkContrast="true" :contrastWith="formData.bgColor" />
+          <ColorPicker v-model="formData.textColor" label="Text Color" :checkContrast="true" :contrastWith="formData.bgColor" />
+          <ColorPicker v-model="formData.questionColor" label="Question Color" :checkContrast="true" :contrastWith="formData.bgColor" />
+        </div>
+
+        <!-- Newsletter Block -->
+        <div v-else-if="block.type === 'newsletter'">
+          <div class="form-group">
+            <label class="form-label">Title</label>
+            <input v-model="formData.title" type="text" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea v-model="formData.description" class="form-input"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Placeholder</label>
+            <input v-model="formData.placeholder" type="text" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Button Text</label>
+            <input v-model="formData.buttonText" type="text" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Success Message</label>
+            <input v-model="formData.successMessage" type="text" class="form-input" />
+          </div>
+          
+          <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border-color);">
+          <h3 style="margin-bottom: 1rem; font-size: 1rem; font-weight: 600;">Styling Options</h3>
+          
+          <ColorPicker v-model="formData.bgColor" label="Background Color" />
+          <ColorPicker v-model="formData.textColor" label="Text Color" :checkContrast="true" :contrastWith="formData.bgColor" />
+          <ColorPicker v-model="formData.buttonBgColor" label="Button Background Color" />
+          <ColorPicker v-model="formData.buttonTextColor" label="Button Text Color" :checkContrast="true" :contrastWith="formData.buttonBgColor" />
+        </div>
+
         <!-- Footer Block -->
         <div v-else-if="block.type === 'footer'">
           <div class="form-group">
@@ -439,6 +579,46 @@ const addTestimonial = () => {
 
 const removeTestimonial = (idx) => {
   formData.value.testimonials.splice(idx, 1)
+}
+
+// Logo methods
+const addLogo = () => {
+  if (!formData.value.logos) formData.value.logos = []
+  formData.value.logos.push({ name: 'Company Name', url: 'https://via.placeholder.com/150x50?text=Logo' })
+}
+
+const removeLogo = (idx) => {
+  formData.value.logos.splice(idx, 1)
+}
+
+// Team member methods
+const addMember = () => {
+  if (!formData.value.members) formData.value.members = []
+  formData.value.members.push({ name: 'Name', role: 'Role', image: 'https://via.placeholder.com/200', bio: 'Bio' })
+}
+
+const removeMember = (idx) => {
+  formData.value.members.splice(idx, 1)
+}
+
+// Stats methods
+const addStat = () => {
+  if (!formData.value.stats) formData.value.stats = []
+  formData.value.stats.push({ icon: '⭐', number: '100+', label: 'Label' })
+}
+
+const removeStat = (idx) => {
+  formData.value.stats.splice(idx, 1)
+}
+
+// FAQ methods
+const addFaq = () => {
+  if (!formData.value.faqs) formData.value.faqs = []
+  formData.value.faqs.push({ question: 'Your question?', answer: 'Your answer.' })
+}
+
+const removeFaq = (idx) => {
+  formData.value.faqs.splice(idx, 1)
 }
 
 // Link methods

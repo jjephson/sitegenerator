@@ -58,6 +58,50 @@
         </div>
       </div>
 
+      <!-- Logo Cloud Block -->
+      <div v-else-if="block.type === 'logocloud'" class="preview-logocloud" :style="{ backgroundColor: block.content.bgColor }">
+        <h3 :style="{ color: block.content.titleColor }">{{ block.content.title }}</h3>
+        <div class="preview-logos">
+          <div v-for="(logo, idx) in block.content.logos.slice(0, 3)" :key="idx" class="preview-logo-item">
+            {{ logo.name }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Team Block -->
+      <div v-else-if="block.type === 'team'" class="preview-team" :style="{ backgroundColor: block.content.bgColor }">
+        <h3 :style="{ color: block.content.titleColor }">{{ block.content.title }}</h3>
+        <div class="preview-team-grid">
+          <div v-for="(member, idx) in block.content.members.slice(0, 3)" :key="idx" :style="{ color: block.content.textColor }">
+            {{ member.name }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Block -->
+      <div v-else-if="block.type === 'stats'" class="preview-stats" :style="{ backgroundColor: block.content.bgColor }">
+        <h3 :style="{ color: block.content.textColor }">{{ block.content.title }}</h3>
+        <div class="preview-stats-grid">
+          <div v-for="(stat, idx) in block.content.stats.slice(0, 4)" :key="idx">
+            <strong :style="{ color: block.content.numberColor }">{{ stat.number }}</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ Block -->
+      <div v-else-if="block.type === 'faq'" class="preview-faq" :style="{ backgroundColor: block.content.bgColor }">
+        <h3 :style="{ color: block.content.titleColor }">{{ block.content.title }}</h3>
+        <div :style="{ color: block.content.textColor }">{{ block.content.faqs.length }} questions</div>
+      </div>
+
+      <!-- Newsletter Block -->
+      <div v-else-if="block.type === 'newsletter'" class="preview-newsletter" :style="{ backgroundColor: block.content.bgColor }">
+        <h3 :style="{ color: block.content.textColor }">{{ block.content.title }}</h3>
+        <div style="font-size: 0.75rem; margin-top: 0.5rem;" :style="{ color: block.content.textColor }">
+          [Email Signup Form]
+        </div>
+      </div>
+
       <!-- Footer Block -->
       <div v-else-if="block.type === 'footer'" class="preview-footer" :style="{ backgroundColor: block.content.bgColor, color: block.content.textColor }">
         <strong>{{ block.content.companyName }}</strong>
@@ -91,6 +135,11 @@ const getBlockIcon = (type) => {
     contact: '📧',
     pricing: '💰',
     testimonials: '💬',
+    logocloud: '🏢',
+    team: '👥',
+    stats: '📊',
+    faq: '❓',
+    newsletter: '📮',
     footer: '📄'
   }
   return icons[type] || '📦'
@@ -194,6 +243,30 @@ const getButtonStyle = () => {
 .preview-logo {
   max-height: 40px;
   margin-bottom: 0.5rem;
+}
+
+.preview-logocloud,
+.preview-team,
+.preview-stats,
+.preview-faq,
+.preview-newsletter {
+  text-align: center;
+}
+
+.preview-logos,
+.preview-team-grid,
+.preview-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.preview-logo-item {
+  padding: 0.5rem;
+  background-color: white;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
 }
 </style>
 

@@ -14,6 +14,7 @@ export const useBuilderStore = defineStore('builder', {
         type: 'hero',
         name: 'Hero Section',
         icon: '🎯',
+        accessLevel: 'basic',
         defaultContent: {
           title: 'Welcome to Our App',
           subtitle: 'Build amazing things with ease',
@@ -32,6 +33,7 @@ export const useBuilderStore = defineStore('builder', {
         type: 'features',
         name: 'Features Grid',
         icon: '✨',
+        accessLevel: 'basic',
         defaultContent: {
           title: 'Amazing Features',
           features: [
@@ -49,6 +51,7 @@ export const useBuilderStore = defineStore('builder', {
         type: 'cta',
         name: 'Call to Action',
         icon: '📢',
+        accessLevel: 'basic',
         defaultContent: {
           title: 'Ready to get started?',
           description: 'Join thousands of satisfied users',
@@ -65,6 +68,7 @@ export const useBuilderStore = defineStore('builder', {
         type: 'contact',
         name: 'Contact Form',
         icon: '📧',
+        accessLevel: 'basic',
         defaultContent: {
           title: 'Get in Touch',
           description: 'We\'d love to hear from you',
@@ -80,6 +84,7 @@ export const useBuilderStore = defineStore('builder', {
         type: 'pricing',
         name: 'Pricing Table',
         icon: '💰',
+        accessLevel: 'basic',
         defaultContent: {
           title: 'Simple Pricing',
           plans: [
@@ -98,6 +103,7 @@ export const useBuilderStore = defineStore('builder', {
         type: 'testimonials',
         name: 'Testimonials',
         icon: '💬',
+        accessLevel: 'basic',
         defaultContent: {
           title: 'What Our Users Say',
           testimonials: [
@@ -110,10 +116,109 @@ export const useBuilderStore = defineStore('builder', {
         }
       },
       {
+        id: 'logocloud',
+        type: 'logocloud',
+        name: 'Logo Cloud',
+        icon: '🏢',
+        accessLevel: 'basic',
+        defaultContent: {
+          title: 'Trusted by Leading Companies',
+          logos: [
+            { name: 'Company A', url: 'https://via.placeholder.com/150x50?text=Company+A' },
+            { name: 'Company B', url: 'https://via.placeholder.com/150x50?text=Company+B' },
+            { name: 'Company C', url: 'https://via.placeholder.com/150x50?text=Company+C' },
+            { name: 'Company D', url: 'https://via.placeholder.com/150x50?text=Company+D' },
+            { name: 'Company E', url: 'https://via.placeholder.com/150x50?text=Company+E' },
+            { name: 'Company F', url: 'https://via.placeholder.com/150x50?text=Company+F' }
+          ],
+          bgColor: '#ffffff',
+          textColor: '#1f2937',
+          titleColor: '#111827'
+        }
+      },
+      {
+        id: 'team',
+        type: 'team',
+        name: 'Team Section',
+        icon: '👥',
+        accessLevel: 'basic',
+        defaultContent: {
+          title: 'Meet Our Team',
+          description: 'The talented people behind our success',
+          members: [
+            { name: 'John Doe', role: 'CEO & Founder', image: 'https://via.placeholder.com/200', bio: 'Visionary leader with 10+ years experience' },
+            { name: 'Jane Smith', role: 'CTO', image: 'https://via.placeholder.com/200', bio: 'Tech expert and innovation driver' },
+            { name: 'Mike Johnson', role: 'Head of Design', image: 'https://via.placeholder.com/200', bio: 'Creative mind behind our products' }
+          ],
+          bgColor: '#f3f4f6',
+          textColor: '#1f2937',
+          titleColor: '#111827'
+        }
+      },
+      {
+        id: 'stats',
+        type: 'stats',
+        name: 'Statistics',
+        icon: '📊',
+        accessLevel: 'basic',
+        defaultContent: {
+          title: 'Our Impact in Numbers',
+          stats: [
+            { number: '10K+', label: 'Happy Customers', icon: '😊' },
+            { number: '99%', label: 'Satisfaction Rate', icon: '⭐' },
+            { number: '24/7', label: 'Support Available', icon: '💬' },
+            { number: '50+', label: 'Countries Served', icon: '🌍' }
+          ],
+          bgColor: '#4338ca',
+          textColor: '#ffffff',
+          numberColor: '#ffffff'
+        }
+      },
+      {
+        id: 'faq',
+        type: 'faq',
+        name: 'FAQ Section',
+        icon: '❓',
+        accessLevel: 'basic',
+        defaultContent: {
+          title: 'Frequently Asked Questions',
+          description: 'Find answers to common questions',
+          faqs: [
+            { question: 'How does it work?', answer: 'Our platform makes it easy to build websites with drag-and-drop tools and AI assistance.' },
+            { question: 'Is it free to start?', answer: 'Yes! Start with our free plan and upgrade when you need more features.' },
+            { question: 'Can I export my site?', answer: 'Absolutely! Export as ZIP or deploy directly to GitHub Pages.' },
+            { question: 'Do you offer support?', answer: 'Yes, we provide support via email and our help center.' }
+          ],
+          bgColor: '#ffffff',
+          textColor: '#1f2937',
+          titleColor: '#111827',
+          questionColor: '#1e40af'
+        }
+      },
+      {
+        id: 'newsletter',
+        type: 'newsletter',
+        name: 'Newsletter Signup',
+        icon: '📮',
+        accessLevel: 'basic',
+        defaultContent: {
+          title: 'Stay Updated',
+          description: 'Subscribe to our newsletter for the latest updates and tips',
+          buttonText: 'Subscribe',
+          placeholder: 'Enter your email',
+          successMessage: 'Thanks for subscribing!',
+          bgColor: '#4338ca',
+          textColor: '#ffffff',
+          buttonBgColor: '#ffffff',
+          buttonTextColor: '#1e40af'
+        }
+      },
+      {
         id: 'footer',
         type: 'footer',
         name: 'Footer',
         icon: '📄',
+        accessLevel: 'basic',
         defaultContent: {
           companyName: 'Your Company',
           copyright: '© 2025 All rights reserved',
@@ -127,7 +232,9 @@ export const useBuilderStore = defineStore('builder', {
           linkColor: '#93c5fd'
         }
       }
-    ]
+    ],
+    
+    userAccessLevel: 'basic' // basic, pro, business
   }),
 
   getters: {
@@ -152,7 +259,18 @@ export const useBuilderStore = defineStore('builder', {
     },
     
     hasHeader: (state) => !!state.headerBlock,
-    hasFooter: (state) => !!state.footerBlock
+    hasFooter: (state) => !!state.footerBlock,
+    
+    availableBlocksByAccess: (state) => {
+      const levels = { basic: 1, pro: 2, business: 3 }
+      const userLevel = levels[state.userAccessLevel] || 1
+      
+      return state.availableBlocks.map(block => ({
+        ...block,
+        isLocked: levels[block.accessLevel] > userLevel,
+        upgradeRequired: block.accessLevel !== 'basic' && levels[block.accessLevel] > userLevel
+      }))
+    }
   },
 
   actions: {
@@ -252,6 +370,21 @@ export const useBuilderStore = defineStore('builder', {
 
     setProjectId(id) {
       this.projectId = id
+    },
+    
+    setUserAccessLevel(level) {
+      this.userAccessLevel = level
+    },
+    
+    canAccessBlock(blockType) {
+      const levels = { basic: 1, pro: 2, business: 3 }
+      const block = this.availableBlocks.find(b => b.type === blockType)
+      if (!block) return false
+      
+      const userLevel = levels[this.userAccessLevel] || 1
+      const blockLevel = levels[block.accessLevel] || 1
+      
+      return blockLevel <= userLevel
     },
 
     loadProject(projectData) {
