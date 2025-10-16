@@ -81,38 +81,50 @@
         <div class="features-grid-large">
           <div class="feature-card">
             <div class="feature-icon-large">🎯</div>
-            <h3>Drag & Drop Builder</h3>
-            <p>Intuitive visual editor with 12+ pre-built blocks. Create professional layouts in minutes without writing a single line of code.</p>
+            <div class="feature-content">
+              <h3>Drag & Drop Builder</h3>
+              <p>Intuitive visual editor with 12+ pre-built blocks. Create professional layouts in minutes without writing a single line of code.</p>
+            </div>
           </div>
 
           <div class="feature-card">
             <div class="feature-icon-large">🤖</div>
-            <h3>AI Content Generation</h3>
-            <p>Powered by advanced AI to generate compelling headlines, descriptions, and copy. Get professional content with one click.</p>
+            <div class="feature-content">
+              <h3>AI Content Generation</h3>
+              <p>Powered by advanced AI to generate compelling headlines, descriptions, and copy. Get professional content with one click.</p>
+            </div>
           </div>
 
           <div class="feature-card">
             <div class="feature-icon-large">♿</div>
-            <h3>WCAG AA Compliance</h3>
-            <p>Built-in contrast checker ensures every page meets accessibility standards. Real-time validation prevents non-compliant designs.</p>
+            <div class="feature-content">
+              <h3>WCAG AA Compliance</h3>
+              <p>Built-in contrast checker ensures every page meets accessibility standards. Real-time validation prevents non-compliant designs.</p>
+            </div>
           </div>
 
           <div class="feature-card">
             <div class="feature-icon-large">🎨</div>
-            <h3>Full Design Control</h3>
-            <p>Customize every color, font, image, and layout. Add logos, background images, and fine-tune every detail to match your brand.</p>
+            <div class="feature-content">
+              <h3>Full Design Control</h3>
+              <p>Customize every color, font, image, and layout. Add logos, background images, and fine-tune every detail to match your brand.</p>
+            </div>
           </div>
 
           <div class="feature-card">
             <div class="feature-icon-large">👁️</div>
-            <h3>Live Preview</h3>
-            <p>See changes instantly in a real-time preview. What you see is exactly what you'll get—no surprises.</p>
+            <div class="feature-content">
+              <h3>Live Preview</h3>
+              <p>See changes instantly in a real-time preview. What you see is exactly what you'll get—no surprises.</p>
+            </div>
           </div>
 
           <div class="feature-card">
             <div class="feature-icon-large">🚀</div>
-            <h3>One-Click Deploy</h3>
-            <p>Deploy to GitHub Pages instantly or export as a ZIP file. Your site goes live in seconds, not hours.</p>
+            <div class="feature-content">
+              <h3>One-Click Deploy</h3>
+              <p>Deploy to GitHub Pages instantly or export as a ZIP file. Your site goes live in seconds, not hours.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -598,24 +610,24 @@ const handleLogout = async () => {
 
 /* Features Section */
 .features-section {
-  padding: 5rem 0;
+  padding: 4rem 0;
   background-color: #ffffff;
 }
 
 .section-header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 3rem;
 }
 
 .section-title {
-  font-size: 2.75rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: #111827;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .section-subtitle {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   color: #6b7280;
   max-width: 700px;
   margin: 0 auto;
@@ -623,40 +635,48 @@ const handleLogout = async () => {
 
 .features-grid-large {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
 }
 
 .feature-card {
-  padding: 2.5rem;
+  padding: 1.75rem 1.5rem;
   background-color: #f9fafb;
-  border-radius: 1rem;
+  border-radius: 0.75rem;
   border: 1px solid #e5e7eb;
   transition: all 0.3s;
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
 }
 
 .feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   border-color: #4338ca;
 }
 
 .feature-icon-large {
-  font-size: 3rem;
-  margin-bottom: 1.5rem;
+  font-size: 2.25rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.feature-content {
+  flex: 1;
 }
 
 .feature-card h3 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
   color: #111827;
 }
 
 .feature-card p {
   color: #4b5563;
-  line-height: 1.7;
-  font-size: 1rem;
+  line-height: 1.6;
+  font-size: 0.9375rem;
 }
 
 /* How It Works */
