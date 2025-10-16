@@ -352,6 +352,7 @@
 
 <script setup>
 import ColorPicker from '~/components/ui/ColorPicker.vue'
+import { checkContrast } from '~/utils/contrast'
 
 const props = defineProps({
   block: {
@@ -433,12 +434,116 @@ const removeLink = (idx) => {
   formData.value.links.splice(idx, 1)
 }
 
+const validateContrast = () => {
+  const errors = []
+  
+  // Validate based on block type
+  if (props.block.type === 'hero') {
+    const bgTextCheck = checkContrast(formData.value.textColor, formData.value.bgColor)
+    if (!bgTextCheck.passes) {
+      errors.push(`Hero text color (${formData.value.textColor}) on background (${formData.value.bgColor}): ${bgTextCheck.ratio}:1 - needs ${bgTextCheck.minRequired}:1`)
+    }
+    
+    const btnCheck = checkContrast(formData.value.buttonTextColor, formData.value.buttonBgColor)
+    if (!btnCheck.passes) {
+      errors.push(`Button text color (${formData.value.buttonTextColor}) on button background (${formData.value.buttonBgColor}): ${btnCheck.ratio}:1 - needs ${btnCheck.minRequired}:1`)
+    }
+  }
+  
+  if (props.block.type === 'features') {
+    const titleCheck = checkContrast(formData.value.titleColor, formData.value.bgColor)
+    if (!titleCheck.passes) {
+      errors.push(`Title color on background: ${titleCheck.ratio}:1 - needs ${titleCheck.minRequired}:1`)
+    }
+    
+    const textCheck = checkContrast(formData.value.textColor, formData.value.bgColor)
+    if (!textCheck.passes) {
+      errors.push(`Text color on background: ${textCheck.ratio}:1 - needs ${textCheck.minRequired}:1`)
+    }
+  }
+  
+  if (props.block.type === 'cta') {
+    const textCheck = checkContrast(formData.value.textColor, formData.value.bgColor)
+    if (!textCheck.passes) {
+      errors.push(`CTA text color on background: ${textCheck.ratio}:1 - needs ${textCheck.minRequired}:1`)
+    }
+    
+    const btnCheck = checkContrast(formData.value.buttonTextColor, formData.value.buttonBgColor)
+    if (!btnCheck.passes) {
+      errors.push(`Button text on button background: ${btnCheck.ratio}:1 - needs ${btnCheck.minRequired}:1`)
+    }
+  }
+  
+  if (props.block.type === 'contact') {
+    const titleCheck = checkContrast(formData.value.titleColor, formData.value.bgColor)
+    if (!titleCheck.passes) {
+      errors.push(`Title color on background: ${titleCheck.ratio}:1 - needs ${titleCheck.minRequired}:1`)
+    }
+    
+    const textCheck = checkContrast(formData.value.textColor, formData.value.bgColor)
+    if (!textCheck.passes) {
+      errors.push(`Text color on background: ${textCheck.ratio}:1 - needs ${textCheck.minRequired}:1`)
+    }
+    
+    const btnCheck = checkContrast(formData.value.buttonTextColor, formData.value.buttonBgColor)
+    if (!btnCheck.passes) {
+      errors.push(`Button text on button background: ${btnCheck.ratio}:1 - needs ${btnCheck.minRequired}:1`)
+    }
+  }
+  
+  if (props.block.type === 'pricing') {
+    const titleCheck = checkContrast(formData.value.titleColor, formData.value.bgColor)
+    if (!titleCheck.passes) {
+      errors.push(`Title color on background: ${titleCheck.ratio}:1 - needs ${titleCheck.minRequired}:1`)
+    }
+    
+    const textCheck = checkContrast(formData.value.textColor, formData.value.bgColor)
+    if (!textCheck.passes) {
+      errors.push(`Text color on background: ${textCheck.ratio}:1 - needs ${textCheck.minRequired}:1`)
+    }
+  }
+  
+  if (props.block.type === 'testimonials') {
+    const titleCheck = checkContrast(formData.value.titleColor, formData.value.bgColor)
+    if (!titleCheck.passes) {
+      errors.push(`Title color on background: ${titleCheck.ratio}:1 - needs ${titleCheck.minRequired}:1`)
+    }
+    
+    const textCheck = checkContrast(formData.value.textColor, formData.value.bgColor)
+    if (!textCheck.passes) {
+      errors.push(`Text color on background: ${textCheck.ratio}:1 - needs ${textCheck.minRequired}:1`)
+    }
+  }
+  
+  if (props.block.type === 'footer') {
+    const textCheck = checkContrast(formData.value.textColor, formData.value.bgColor)
+    if (!textCheck.passes) {
+      errors.push(`Text color on background: ${textCheck.ratio}:1 - needs ${textCheck.minRequired}:1`)
+    }
+    
+    const linkCheck = checkContrast(formData.value.linkColor, formData.value.bgColor)
+    if (!linkCheck.passes) {
+      errors.push(`Link color on background: ${linkCheck.ratio}:1 - needs ${linkCheck.minRequired}:1`)
+    }
+  }
+  
+  return errors
+}
+
 const save = () => {
   // Update plan features before saving
   if (props.block.type === 'pricing') {
     formData.value.plans.forEach((plan, idx) => {
       updatePlanFeatures(idx)
     })
+  }
+  
+  // Validate WCAG AA contrast
+  const contrastErrors = validateContrast()
+  
+  if (contrastErrors.length > 0) {
+    alert('❌ Cannot save: WCAG AA contrast requirements not met!\n\n' + contrastErrors.join('\n\n') + '\n\nPlease adjust your colors to meet accessibility standards.')
+    return
   }
   
   emit('save', formData.value)

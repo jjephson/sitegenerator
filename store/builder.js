@@ -19,10 +19,10 @@ export const useBuilderStore = defineStore('builder', {
           buttonLink: '#',
           logo: '',
           bgImage: '',
-          bgColor: '#667eea',
+          bgColor: '#4338ca',
           textColor: '#ffffff',
           buttonBgColor: '#ffffff',
-          buttonTextColor: '#667eea'
+          buttonTextColor: '#1e40af'
         }
       },
       {
@@ -37,9 +37,9 @@ export const useBuilderStore = defineStore('builder', {
             { title: 'Secure', description: 'Bank-level security', icon: '🔒' },
             { title: 'Scalable', description: 'Grows with your needs', icon: '📈' }
           ],
-          bgColor: '#f7fafc',
-          textColor: '#2d3748',
-          titleColor: '#1a202c'
+          bgColor: '#f3f4f6',
+          textColor: '#1f2937',
+          titleColor: '#111827'
         }
       },
       {
@@ -52,10 +52,10 @@ export const useBuilderStore = defineStore('builder', {
           description: 'Join thousands of satisfied users',
           buttonText: 'Sign Up Now',
           buttonLink: '#',
-          bgColor: '#667eea',
+          bgColor: '#4338ca',
           textColor: '#ffffff',
           buttonBgColor: '#ffffff',
-          buttonTextColor: '#667eea'
+          buttonTextColor: '#1e40af'
         }
       },
       {
@@ -67,9 +67,9 @@ export const useBuilderStore = defineStore('builder', {
           title: 'Get in Touch',
           description: 'We\'d love to hear from you',
           bgColor: '#ffffff',
-          textColor: '#2d3748',
-          titleColor: '#1a202c',
-          buttonBgColor: '#667eea',
+          textColor: '#1f2937',
+          titleColor: '#111827',
+          buttonBgColor: '#1e40af',
           buttonTextColor: '#ffffff'
         }
       },
@@ -86,9 +86,9 @@ export const useBuilderStore = defineStore('builder', {
             { name: 'Enterprise', price: '$99', features: ['All Pro', 'Feature 6', 'Priority Support'] }
           ],
           bgColor: '#ffffff',
-          textColor: '#2d3748',
-          titleColor: '#1a202c',
-          accentColor: '#667eea'
+          textColor: '#1f2937',
+          titleColor: '#111827',
+          accentColor: '#1e40af'
         }
       },
       {
@@ -102,9 +102,9 @@ export const useBuilderStore = defineStore('builder', {
             { name: 'John Doe', role: 'CEO', text: 'Amazing product!', avatar: '👨' },
             { name: 'Jane Smith', role: 'Designer', text: 'Love the simplicity', avatar: '👩' }
           ],
-          bgColor: '#f7fafc',
-          textColor: '#2d3748',
-          titleColor: '#1a202c'
+          bgColor: '#f3f4f6',
+          textColor: '#1f2937',
+          titleColor: '#111827'
         }
       },
       {
@@ -120,9 +120,9 @@ export const useBuilderStore = defineStore('builder', {
             { text: 'Terms', url: '#' },
             { text: 'Contact', url: '#' }
           ],
-          bgColor: '#2d3748',
+          bgColor: '#1f2937',
           textColor: '#ffffff',
-          linkColor: '#a0aec0'
+          linkColor: '#93c5fd'
         }
       }
     ]
