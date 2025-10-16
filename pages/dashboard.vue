@@ -16,6 +16,10 @@
         />
       </div>
 
+      <div v-if="hasUnsavedChanges" class="unsaved-indicator" role="status" aria-live="polite">
+        <span style="font-size: 0.75rem; color: #f59e0b;">● Unsaved changes (auto-saving...)</span>
+      </div>
+      
       <div class="flex gap-1 mb-2">
         <button @click="saveProject" class="btn btn-sm btn-primary" style="flex: 1;" :disabled="saving">
           {{ saving ? '⏳' : '💾' }} {{ saving ? 'Saving...' : 'Save' }}
@@ -121,26 +125,26 @@
               <div class="section-label">Content Blocks</div>
               <div
                 v-for="block in builderStore.contentBlocks"
-                :key="block.id"
-                class="canvas-block"
-                :class="{ 'selected': builderStore.selectedBlockId === block.id }"
-                @click="builderStore.selectBlock(block.id)"
-              >
-                <div class="block-actions">
-                  <button @click.stop="builderStore.moveBlockUp(block.id)" class="btn btn-sm btn-outline" title="Move Up">
-                    ↑
-                  </button>
-                  <button @click.stop="builderStore.moveBlockDown(block.id)" class="btn btn-sm btn-outline" title="Move Down">
-                    ↓
-                  </button>
-                  <button @click.stop="editBlock(block)" class="btn btn-sm btn-secondary" title="Edit">
-                    ✏️
-                  </button>
-                  <button @click.stop="builderStore.removeBlock(block.id)" class="btn btn-sm btn-danger" title="Delete">
-                    🗑️
-                  </button>
-                </div>
-                <BlockRenderer :block="block" />
+              :key="block.id"
+              class="canvas-block"
+              :class="{ 'selected': builderStore.selectedBlockId === block.id }"
+              @click="builderStore.selectBlock(block.id)"
+            >
+              <div class="block-actions">
+                <button @click.stop="builderStore.moveBlockUp(block.id)" class="btn btn-sm btn-outline" title="Move Up">
+                  ↑
+                </button>
+                <button @click.stop="builderStore.moveBlockDown(block.id)" class="btn btn-sm btn-outline" title="Move Down">
+                  ↓
+                </button>
+                <button @click.stop="editBlock(block)" class="btn btn-sm btn-secondary" title="Edit">
+                  ✏️
+                </button>
+                <button @click.stop="builderStore.removeBlock(block.id)" class="btn btn-sm btn-danger" title="Delete">
+                  🗑️
+                </button>
+              </div>
+              <BlockRenderer :block="block" />
               </div>
             </div>
 
@@ -194,6 +198,7 @@
 </template>
 
 <script setup>
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useBuilderStore } from '~/store/builder'
 import { useSupabase } from '~/composables/useSupabase'
 import BlockRenderer from '~/components/ui/BlockRenderer.vue'
@@ -222,6 +227,11 @@ const saving = ref(false)
 const loading = ref(false)
 const statusMessage = ref('')
 const statusType = ref('info')
+const hasUnsavedChanges = ref(false)
+const autoSaveTimer = ref(null)
+
+const LOCALSTORAGE_KEY = 'onepage-builder-draft'
+const AUTO_SAVE_INTERVAL = 30000 // 30 seconds
 
 const previewHtml = computed(() => {
   return generatePreviewHtml(builderStore.allBlocks)
@@ -277,7 +287,7 @@ const saveProject = async () => {
 
   saving.value = true
   statusMessage.value = ''
-  
+
   const projectData = builderStore.exportProjectData()
   
   try {
@@ -286,12 +296,12 @@ const saveProject = async () => {
     if (builderStore.projectId) {
       // Update existing project
       const result = await supabase
-        .from('projects')
+      .from('projects')
         .update({
-          name: builderStore.projectName,
-          data: projectData,
-          updated_at: new Date().toISOString()
-        })
+        name: builderStore.projectName,
+        data: projectData,
+        updated_at: new Date().toISOString()
+      })
         .eq('id', builderStore.projectId)
         .select()
       
@@ -305,8 +315,8 @@ const saveProject = async () => {
           user_id: user.value.id,
           name: builderStore.projectName,
           data: projectData
-        })
-        .select()
+      })
+      .select()
       
       data = result.data
       error = result.error
@@ -319,6 +329,8 @@ const saveProject = async () => {
     }
 
     showStatus('✓ Project saved successfully!', 'success')
+    clearLocalStorage()
+    hasUnsavedChanges.value = false
   } catch (error) {
     console.error('Error saving project:', error)
     showStatus('✗ Failed to save project: ' + error.message, 'error')
@@ -332,7 +344,7 @@ const loadProject = async () => {
 
   loading.value = true
   statusMessage.value = ''
-  
+
   try {
     const { data, error } = await supabase
       .from('projects')
@@ -675,8 +687,108 @@ const renderBlockHtml = (block) => {
   }
 }
 
+// LocalStorage Functions
+const saveToLocalStorage = () => {
+  if (!process.client) return
+  
+  try {
+    const draftData = {
+      projectName: builderStore.projectName,
+      projectId: builderStore.projectId,
+      headerBlock: builderStore.headerBlock,
+      contentBlocks: builderStore.contentBlocks,
+      footerBlock: builderStore.footerBlock,
+      timestamp: Date.now()
+    }
+    localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(draftData))
+  } catch (error) {
+    console.error('Failed to save to localStorage:', error)
+  }
+}
+
+const loadFromLocalStorage = () => {
+  if (!process.client) return null
+  
+  try {
+    const stored = localStorage.getItem(LOCALSTORAGE_KEY)
+    if (stored) {
+      const data = JSON.parse(stored)
+      // Only use localStorage data if it's recent (within 24 hours)
+      const age = Date.now() - data.timestamp
+      if (age < 24 * 60 * 60 * 1000) {
+        return data
+      }
+    }
+  } catch (error) {
+    console.error('Failed to load from localStorage:', error)
+  }
+  return null
+}
+
+const clearLocalStorage = () => {
+  if (!process.client) return
+  try {
+    localStorage.removeItem(LOCALSTORAGE_KEY)
+  } catch (error) {
+    console.error('Failed to clear localStorage:', error)
+  }
+}
+
+// Auto-save function
+const autoSaveToDatabase = async () => {
+  if (!user.value || !hasUnsavedChanges.value) return
+  
+  try {
+    await saveProject()
+    hasUnsavedChanges.value = false
+  } catch (error) {
+    console.error('Auto-save failed:', error)
+  }
+}
+
+// Watch for changes in blocks
+watch(
+  () => [builderStore.headerBlock, builderStore.contentBlocks, builderStore.footerBlock, builderStore.projectName],
+  () => {
+    hasUnsavedChanges.value = true
+    saveToLocalStorage()
+  },
+  { deep: true }
+)
+
+// Initialize on mount
+onMounted(() => {
+  // Try to restore from localStorage
+  const draft = loadFromLocalStorage()
+  if (draft) {
+    const shouldRestore = confirm(
+      '📝 Found unsaved work from your last session. Would you like to restore it?'
+    )
+    
+    if (shouldRestore) {
+      builderStore.projectName = draft.projectName || 'My OnePage App'
+      builderStore.projectId = draft.projectId || null
+      builderStore.headerBlock = draft.headerBlock || null
+      builderStore.contentBlocks = draft.contentBlocks || []
+      builderStore.footerBlock = draft.footerBlock || null
+      showStatus('✓ Draft restored from your last session', 'success')
+    } else {
+      clearLocalStorage()
+    }
+  }
+  
+  // Start auto-save timer
+  autoSaveTimer.value = setInterval(autoSaveToDatabase, AUTO_SAVE_INTERVAL)
+})
+
+// Cleanup on unmount
+onUnmounted(() => {
+  if (autoSaveTimer.value) {
+    clearInterval(autoSaveTimer.value)
+  }
+})
+
 // Session is already handled by auth middleware
-// No need for additional checks on mount
 </script>
 
 <style scoped>
@@ -787,6 +899,24 @@ const renderBlockHtml = (block) => {
   right: 0.5rem;
   font-size: 1.25rem;
   opacity: 0.5;
+}
+
+.unsaved-indicator {
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+  background-color: #fef3c7;
+  border-radius: 0.375rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
 }
 
 .status-message {
