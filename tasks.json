@@ -1,0 +1,98 @@
+{
+    "version": "1.0",
+    "project": "OnePage AI Builder",
+    "description": "A no-code builder that lets users design one-page Vue.js apps with drag-and-drop, AI-generated content, and export/deploy via GitHub Pages.",
+    "tasks": [
+      {
+        "title": "Initialize Nuxt 3 Project",
+        "description": "Create a new Nuxt 3 project named 'onepage-ai-builder' using plain CSS (no Tailwind). Run `npx nuxi init onepage-ai-builder` then install dependencies.",
+        "commands": [
+          "npx nuxi init onepage-ai-builder",
+          "cd onepage-ai-builder",
+          "npm install",
+          "npm run dev"
+        ],
+        "files": []
+      },
+      {
+        "title": "Install Dependencies",
+        "description": "Install all necessary libraries for state management, drag and drop, Stripe, and Supabase.",
+        "commands": [
+          "npm install pinia vue-draggable-next stripe stripe-js @supabase/supabase-js archiver"
+        ]
+      },
+      {
+        "title": "Setup Folder Structure",
+        "description": "Create the folder structure for components, pages, server API routes, and generator templates.",
+        "files": [
+          "app/components/ui/",
+          "app/components/blocks/",
+          "app/pages/",
+          "server/api/",
+          "server/middleware/",
+          "generator/templates/"
+        ]
+      },
+      {
+        "title": "Configure nuxt.config.ts",
+        "description": "Add CSS, Pinia module, and runtime configuration for Supabase, Stripe, AI, and GitHub API keys.",
+        "files": ["nuxt.config.ts"]
+      },
+      {
+        "title": "Setup Supabase Auth",
+        "description": "Integrate Supabase for email/password authentication. Add login and registration forms in login.vue.",
+        "files": ["app/pages/login.vue", "composables/useSupabase.js"]
+      },
+      {
+        "title": "Build Dashboard Editor",
+        "description": "Create dashboard.vue with a sidebar for draggable blocks and a main area for the preview canvas.",
+        "files": ["app/pages/dashboard.vue", "app/store/builder.js"]
+      },
+      {
+        "title": "Add AI Integration (ai.yo.help)",
+        "description": "Create /server/api/ai.post.js to send prompts to ai.yo.help. Add 'Generate with AI' buttons beside editable text fields.",
+        "files": ["server/api/ai.post.js"]
+      },
+      {
+        "title": "Stripe Payment Integration",
+        "description": "Implement Stripe Checkout for subscriptions and add webhook handling in /server/api/stripe-webhook.post.js.",
+        "files": ["app/pages/billing.vue", "server/api/stripe-webhook.post.js"]
+      },
+      {
+        "title": "Project Save/Load",
+        "description": "Save and load user projects as JSON via Supabase. Implement Save and Load buttons in the dashboard.",
+        "files": ["app/pages/dashboard.vue", "app/store/builder.js"]
+      },
+      {
+        "title": "Export to ZIP",
+        "description": "Implement /server/api/export.post.js to generate and zip a Tailwind-based Vue project using the user's project data.",
+        "files": ["server/api/export.post.js", "generator/build.js"]
+      },
+      {
+        "title": "GitHub Pages Integration",
+        "description": "Add GitHub OAuth and use the API to deploy the generated project to GitHub Pages.",
+        "files": ["server/api/github-deploy.post.js"]
+      },
+      {
+        "title": "Live Preview System",
+        "description": "Add a live preview iframe in dashboard.vue that updates when users add or modify components.",
+        "files": ["app/pages/dashboard.vue"]
+      },
+      {
+        "title": "Styling",
+        "description": "Use plain CSS for the dashboard. Add custom styles to assets/css/main.css.",
+        "files": ["app/assets/css/main.css"]
+      },
+      {
+        "title": "Deploy the App",
+        "description": "Deploy to Vercel or Netlify. Configure environment variables for Supabase, Stripe, ai.yo.help, and GitHub.",
+        "files": []
+      },
+      {
+        "title": "Final Testing",
+        "description": "Test login, AI suggestions, Stripe payments, project saving, export, and GitHub deploy.",
+        "files": []
+      }
+    ]
+  }
+  
