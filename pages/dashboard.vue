@@ -123,6 +123,8 @@
 <script setup>
 import { useBuilderStore } from '~/store/builder'
 import { useSupabase } from '~/composables/useSupabase'
+import BlockRenderer from '~/components/ui/BlockRenderer.vue'
+import EditModal from '~/components/ui/EditModal.vue'
 
 definePageMeta({
   middleware: 'auth'
