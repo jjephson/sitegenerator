@@ -61,9 +61,12 @@
 
     <!-- Main Content -->
     <div class="main-content">
-      <div class="navbar mb-2">
-        <div class="navbar-brand">OnePage AI Builder</div>
-        <div class="flex gap-2">
+      <div class="dashboard-navbar mb-2">
+        <NuxtLink to="/" class="navbar-brand-link">
+          <Logo :width="36" :height="36" />
+          <span class="navbar-brand-text">OnePage AI Builder</span>
+        </NuxtLink>
+        <div class="navbar-actions">
           <button @click="exportToZip" class="btn btn-sm btn-secondary">
             📦 Export ZIP
           </button>
@@ -146,6 +149,7 @@ import { useBuilderStore } from '~/store/builder'
 import { useSupabase } from '~/composables/useSupabase'
 import BlockRenderer from '~/components/ui/BlockRenderer.vue'
 import EditModal from '~/components/ui/EditModal.vue'
+import Logo from '~/components/ui/Logo.vue'
 
 definePageMeta({
   middleware: 'auth'
@@ -509,6 +513,42 @@ const renderBlockHtml = (block) => {
 </script>
 
 <style scoped>
+.dashboard-navbar {
+  background-color: var(--bg-white);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-brand-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.navbar-brand-link:hover {
+  opacity: 0.8;
+}
+
+.navbar-brand-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #4338ca 0%, #7c3aed 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.navbar-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
 .canvas-block.selected {
   border-color: var(--primary-color);
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
