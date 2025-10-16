@@ -1,16 +1,24 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
-  // Skip middleware on server-side during initial load
+  // Only run on client-side
   if (process.server) {
     return
   }
   
-  const { user, getSession } = useSupabase()
+  const { user, supabase } = useSupabase()
   
-  // If user state is not set, check session
+  // Wait a moment for the auth plugin to initialize the session
   if (!user.value) {
-    const { data } = await getSession()
-    
-    if (!data.session) {
+    try {
+      const { data } = await supabase.auth.getSession()
+      
+      if (!data.session) {
+        return navigateTo('/login')
+      }
+      
+      // Update user state
+      user.value = data.session.user
+    } catch (error) {
+      console.error('Auth middleware error:', error)
       return navigateTo('/login')
     }
   }
