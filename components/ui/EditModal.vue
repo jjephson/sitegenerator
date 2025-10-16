@@ -31,6 +31,43 @@
             <label class="form-label">Button Link</label>
             <input v-model="formData.buttonLink" type="text" class="form-input" />
           </div>
+          
+          <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border-color);">
+          <h3 style="margin-bottom: 1rem; font-size: 1rem; font-weight: 600;">Styling Options</h3>
+          
+          <div class="form-group">
+            <label class="form-label">Logo URL (optional)</label>
+            <input v-model="formData.logo" type="url" class="form-input" placeholder="https://example.com/logo.png" />
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Background Image URL (optional)</label>
+            <input v-model="formData.bgImage" type="url" class="form-input" placeholder="https://example.com/bg.jpg" />
+          </div>
+          
+          <ColorPicker
+            v-model="formData.bgColor"
+            label="Background Color"
+          />
+          
+          <ColorPicker
+            v-model="formData.textColor"
+            label="Text Color"
+            :checkContrast="true"
+            :contrastWith="formData.bgColor"
+          />
+          
+          <ColorPicker
+            v-model="formData.buttonBgColor"
+            label="Button Background Color"
+          />
+          
+          <ColorPicker
+            v-model="formData.buttonTextColor"
+            label="Button Text Color"
+            :checkContrast="true"
+            :contrastWith="formData.buttonBgColor"
+          />
         </div>
 
         <!-- Features Block -->
@@ -52,6 +89,28 @@
             </div>
             <button @click="addFeature" class="btn btn-sm btn-secondary mt-1">+ Add Feature</button>
           </div>
+          
+          <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border-color);">
+          <h3 style="margin-bottom: 1rem; font-size: 1rem; font-weight: 600;">Styling Options</h3>
+          
+          <ColorPicker
+            v-model="formData.bgColor"
+            label="Background Color"
+          />
+          
+          <ColorPicker
+            v-model="formData.titleColor"
+            label="Title Color"
+            :checkContrast="true"
+            :contrastWith="formData.bgColor"
+          />
+          
+          <ColorPicker
+            v-model="formData.textColor"
+            label="Text Color"
+            :checkContrast="true"
+            :contrastWith="formData.bgColor"
+          />
         </div>
 
         <!-- CTA Block -->
@@ -78,6 +137,33 @@
             <label class="form-label">Button Link</label>
             <input v-model="formData.buttonLink" type="text" class="form-input" />
           </div>
+          
+          <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border-color);">
+          <h3 style="margin-bottom: 1rem; font-size: 1rem; font-weight: 600;">Styling Options</h3>
+          
+          <ColorPicker
+            v-model="formData.bgColor"
+            label="Background Color"
+          />
+          
+          <ColorPicker
+            v-model="formData.textColor"
+            label="Text Color"
+            :checkContrast="true"
+            :contrastWith="formData.bgColor"
+          />
+          
+          <ColorPicker
+            v-model="formData.buttonBgColor"
+            label="Button Background Color"
+          />
+          
+          <ColorPicker
+            v-model="formData.buttonTextColor"
+            label="Button Text Color"
+            :checkContrast="true"
+            :contrastWith="formData.buttonBgColor"
+          />
         </div>
 
         <!-- Contact Block -->
@@ -90,6 +176,40 @@
             <label class="form-label">Description</label>
             <textarea v-model="formData.description" class="form-input"></textarea>
           </div>
+          
+          <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border-color);">
+          <h3 style="margin-bottom: 1rem; font-size: 1rem; font-weight: 600;">Styling Options</h3>
+          
+          <ColorPicker
+            v-model="formData.bgColor"
+            label="Background Color"
+          />
+          
+          <ColorPicker
+            v-model="formData.titleColor"
+            label="Title Color"
+            :checkContrast="true"
+            :contrastWith="formData.bgColor"
+          />
+          
+          <ColorPicker
+            v-model="formData.textColor"
+            label="Text Color"
+            :checkContrast="true"
+            :contrastWith="formData.bgColor"
+          />
+          
+          <ColorPicker
+            v-model="formData.buttonBgColor"
+            label="Button Background Color"
+          />
+          
+          <ColorPicker
+            v-model="formData.buttonTextColor"
+            label="Button Text Color"
+            :checkContrast="true"
+            :contrastWith="formData.buttonBgColor"
+          />
         </div>
 
         <!-- Pricing Block -->
@@ -108,6 +228,33 @@
             </div>
             <button @click="addPlan" class="btn btn-sm btn-secondary">+ Add Plan</button>
           </div>
+          
+          <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border-color);">
+          <h3 style="margin-bottom: 1rem; font-size: 1rem; font-weight: 600;">Styling Options</h3>
+          
+          <ColorPicker
+            v-model="formData.bgColor"
+            label="Background Color"
+          />
+          
+          <ColorPicker
+            v-model="formData.titleColor"
+            label="Title Color"
+            :checkContrast="true"
+            :contrastWith="formData.bgColor"
+          />
+          
+          <ColorPicker
+            v-model="formData.textColor"
+            label="Text Color"
+            :checkContrast="true"
+            :contrastWith="formData.bgColor"
+          />
+          
+          <ColorPicker
+            v-model="formData.accentColor"
+            label="Accent Color (price highlight)"
+          />
         </div>
 
         <!-- Testimonials Block -->
@@ -127,6 +274,28 @@
             </div>
             <button @click="addTestimonial" class="btn btn-sm btn-secondary">+ Add Testimonial</button>
           </div>
+          
+          <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border-color);">
+          <h3 style="margin-bottom: 1rem; font-size: 1rem; font-weight: 600;">Styling Options</h3>
+          
+          <ColorPicker
+            v-model="formData.bgColor"
+            label="Background Color"
+          />
+          
+          <ColorPicker
+            v-model="formData.titleColor"
+            label="Title Color"
+            :checkContrast="true"
+            :contrastWith="formData.bgColor"
+          />
+          
+          <ColorPicker
+            v-model="formData.textColor"
+            label="Text Color"
+            :checkContrast="true"
+            :contrastWith="formData.bgColor"
+          />
         </div>
 
         <!-- Footer Block -->
@@ -148,6 +317,28 @@
             </div>
             <button @click="addLink" class="btn btn-sm btn-secondary">+ Add Link</button>
           </div>
+          
+          <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid var(--border-color);">
+          <h3 style="margin-bottom: 1rem; font-size: 1rem; font-weight: 600;">Styling Options</h3>
+          
+          <ColorPicker
+            v-model="formData.bgColor"
+            label="Background Color"
+          />
+          
+          <ColorPicker
+            v-model="formData.textColor"
+            label="Text Color"
+            :checkContrast="true"
+            :contrastWith="formData.bgColor"
+          />
+          
+          <ColorPicker
+            v-model="formData.linkColor"
+            label="Link Color"
+            :checkContrast="true"
+            :contrastWith="formData.bgColor"
+          />
         </div>
       </div>
 
@@ -160,6 +351,8 @@
 </template>
 
 <script setup>
+import ColorPicker from '~/components/ui/ColorPicker.vue'
+
 const props = defineProps({
   block: {
     type: Object,

@@ -7,60 +7,64 @@
     
     <div class="block-preview">
       <!-- Hero Block -->
-      <div v-if="block.type === 'hero'" class="preview-hero">
-        <h2>{{ block.content.title }}</h2>
-        <p>{{ block.content.subtitle }}</p>
-        <button class="preview-btn">{{ block.content.buttonText }}</button>
+      <div v-if="block.type === 'hero'" class="preview-hero" :style="getHeroStyle()">
+        <img v-if="block.content.logo" :src="block.content.logo" alt="Logo" class="preview-logo" />
+        <h2 :style="{ color: block.content.textColor }">{{ block.content.title }}</h2>
+        <p :style="{ color: block.content.textColor }">{{ block.content.subtitle }}</p>
+        <button class="preview-btn" :style="getButtonStyle()">{{ block.content.buttonText }}</button>
       </div>
 
       <!-- Features Block -->
-      <div v-else-if="block.type === 'features'" class="preview-features">
-        <h3>{{ block.content.title }}</h3>
+      <div v-else-if="block.type === 'features'" class="preview-features" :style="{ backgroundColor: block.content.bgColor }">
+        <h3 :style="{ color: block.content.titleColor }">{{ block.content.title }}</h3>
         <div class="preview-features-grid">
-          <div v-for="(feature, idx) in block.content.features" :key="idx" class="preview-feature">
+          <div v-for="(feature, idx) in block.content.features" :key="idx" class="preview-feature" :style="{ color: block.content.textColor }">
             <div>{{ feature.icon }} {{ feature.title }}</div>
           </div>
         </div>
       </div>
 
       <!-- CTA Block -->
-      <div v-else-if="block.type === 'cta'" class="preview-cta">
-        <h3>{{ block.content.title }}</h3>
-        <p>{{ block.content.description }}</p>
-        <button class="preview-btn">{{ block.content.buttonText }}</button>
+      <div v-else-if="block.type === 'cta'" class="preview-cta" :style="{ backgroundColor: block.content.bgColor }">
+        <h3 :style="{ color: block.content.textColor }">{{ block.content.title }}</h3>
+        <p :style="{ color: block.content.textColor }">{{ block.content.description }}</p>
+        <button class="preview-btn" :style="getButtonStyle()">{{ block.content.buttonText }}</button>
       </div>
 
       <!-- Contact Block -->
-      <div v-else-if="block.type === 'contact'" class="preview-contact">
-        <h3>{{ block.content.title }}</h3>
-        <p>{{ block.content.description }}</p>
-        <div style="font-size: 0.875rem; color: var(--text-gray);">[Contact Form]</div>
+      <div v-else-if="block.type === 'contact'" class="preview-contact" :style="{ backgroundColor: block.content.bgColor }">
+        <h3 :style="{ color: block.content.titleColor }">{{ block.content.title }}</h3>
+        <p :style="{ color: block.content.textColor }">{{ block.content.description }}</p>
+        <div style="font-size: 0.875rem;" :style="{ color: block.content.textColor }">[Contact Form]</div>
       </div>
 
       <!-- Pricing Block -->
-      <div v-else-if="block.type === 'pricing'" class="preview-pricing">
-        <h3>{{ block.content.title }}</h3>
+      <div v-else-if="block.type === 'pricing'" class="preview-pricing" :style="{ backgroundColor: block.content.bgColor }">
+        <h3 :style="{ color: block.content.titleColor }">{{ block.content.title }}</h3>
         <div class="preview-pricing-grid">
-          <div v-for="(plan, idx) in block.content.plans" :key="idx" class="preview-plan">
-            {{ plan.name }}: {{ plan.price }}
+          <div v-for="(plan, idx) in block.content.plans" :key="idx" class="preview-plan" :style="{ color: block.content.textColor }">
+            <strong :style="{ color: block.content.accentColor }">{{ plan.name }}</strong>: {{ plan.price }}
           </div>
         </div>
       </div>
 
       <!-- Testimonials Block -->
-      <div v-else-if="block.type === 'testimonials'" class="preview-testimonials">
-        <h3>{{ block.content.title }}</h3>
+      <div v-else-if="block.type === 'testimonials'" class="preview-testimonials" :style="{ backgroundColor: block.content.bgColor }">
+        <h3 :style="{ color: block.content.titleColor }">{{ block.content.title }}</h3>
         <div class="preview-testimonials-grid">
-          <div v-for="(testimonial, idx) in block.content.testimonials" :key="idx">
+          <div v-for="(testimonial, idx) in block.content.testimonials" :key="idx" :style="{ color: block.content.textColor }">
             {{ testimonial.avatar }} {{ testimonial.name }}
           </div>
         </div>
       </div>
 
       <!-- Footer Block -->
-      <div v-else-if="block.type === 'footer'" class="preview-footer">
+      <div v-else-if="block.type === 'footer'" class="preview-footer" :style="{ backgroundColor: block.content.bgColor, color: block.content.textColor }">
         <strong>{{ block.content.companyName }}</strong>
         <p style="font-size: 0.75rem; margin-top: 0.5rem;">{{ block.content.copyright }}</p>
+        <div style="margin-top: 0.5rem;">
+          <span v-for="(link, idx) in block.content.links" :key="idx" :style="{ color: block.content.linkColor }" style="margin: 0 0.25rem;">{{ link.text }}</span>
+        </div>
       </div>
 
       <!-- Default -->
@@ -90,6 +94,27 @@ const getBlockIcon = (type) => {
     footer: '📄'
   }
   return icons[type] || '📦'
+}
+
+const getHeroStyle = () => {
+  const style = {
+    backgroundColor: props.block.content.bgColor
+  }
+  
+  if (props.block.content.bgImage) {
+    style.backgroundImage = `url(${props.block.content.bgImage})`
+    style.backgroundSize = 'cover'
+    style.backgroundPosition = 'center'
+  }
+  
+  return style
+}
+
+const getButtonStyle = () => {
+  return {
+    backgroundColor: props.block.content.buttonBgColor,
+    color: props.block.content.buttonTextColor
+  }
 }
 </script>
 
@@ -162,10 +187,13 @@ const getBlockIcon = (type) => {
 }
 
 .preview-footer {
-  background-color: var(--text-dark);
-  color: white;
   padding: 1rem;
   border-radius: 0.375rem;
+}
+
+.preview-logo {
+  max-height: 40px;
+  margin-bottom: 0.5rem;
 }
 </style>
 
