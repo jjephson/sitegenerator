@@ -17,12 +17,23 @@
       </div>
 
       <div class="flex gap-1 mb-2">
-        <button @click="saveProject" class="btn btn-sm btn-primary" style="flex: 1;">
-          💾 Save
+        <button @click="saveProject" class="btn btn-sm btn-primary" style="flex: 1;" :disabled="saving">
+          {{ saving ? '⏳' : '💾' }} {{ saving ? 'Saving...' : 'Save' }}
         </button>
-        <button @click="loadProject" class="btn btn-sm btn-secondary" style="flex: 1;">
-          📂 Load
+        <button @click="loadProject" class="btn btn-sm btn-secondary" style="flex: 1;" :disabled="loading">
+          {{ loading ? '⏳' : '📂' }} {{ loading ? 'Loading...' : 'Load' }}
         </button>
+      </div>
+      
+      <!-- Status Message (Accessible) -->
+      <div
+        v-if="statusMessage"
+        :class="['status-message', statusType]"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        {{ statusMessage }}
       </div>
 
       <div class="block-list">
@@ -137,6 +148,10 @@ const router = useRouter()
 const showEditModal = ref(false)
 const editingBlock = ref(null)
 const draggedBlock = ref(null)
+const saving = ref(false)
+const loading = ref(false)
+const statusMessage = ref('')
+const statusType = ref('info')
 
 const previewHtml = computed(() => {
   return generatePreviewHtml(builderStore.blocks)
@@ -171,10 +186,24 @@ const handleSaveBlock = (updatedContent) => {
   }
 }
 
+// Show status message
+const showStatus = (message, type = 'info') => {
+  statusMessage.value = message
+  statusType.value = type
+  
+  // Auto-hide after 5 seconds
+  setTimeout(() => {
+    statusMessage.value = ''
+  }, 5000)
+}
+
 // Project management
 const saveProject = async () => {
   if (!user.value) return
 
+  saving.value = true
+  statusMessage.value = ''
+  
   const projectData = builderStore.exportProjectData()
   
   try {
@@ -215,16 +244,21 @@ const saveProject = async () => {
       builderStore.setProjectId(data[0].id)
     }
 
-    alert('Project saved successfully!')
+    showStatus('✓ Project saved successfully!', 'success')
   } catch (error) {
     console.error('Error saving project:', error)
-    alert('Failed to save project: ' + error.message)
+    showStatus('✗ Failed to save project: ' + error.message, 'error')
+  } finally {
+    saving.value = false
   }
 }
 
 const loadProject = async () => {
   if (!user.value) return
 
+  loading.value = true
+  statusMessage.value = ''
+  
   try {
     const { data, error } = await supabase
       .from('projects')
@@ -238,19 +272,23 @@ const loadProject = async () => {
       // For simplicity, load the most recent project
       const project = data[0]
       builderStore.loadProject(project.data)
-      alert('Project loaded successfully!')
+      showStatus('✓ Project loaded successfully!', 'success')
     } else {
-      alert('No saved projects found')
+      showStatus('ℹ No saved projects found', 'info')
     }
   } catch (error) {
     console.error('Error loading project:', error)
-    alert('Failed to load project: ' + error.message)
+    showStatus('✗ Failed to load project: ' + error.message, 'error')
+  } finally {
+    loading.value = false
   }
 }
 
 // Export functionality
 const exportToZip = async () => {
   try {
+    showStatus('⏳ Generating export...', 'info')
+    
     const projectData = builderStore.exportProjectData()
     
     const response = await $fetch('/api/export', {
@@ -268,14 +306,18 @@ const exportToZip = async () => {
     a.click()
     window.URL.revokeObjectURL(url)
     document.body.removeChild(a)
+    
+    showStatus('✓ Export downloaded successfully!', 'success')
   } catch (error) {
     console.error('Export error:', error)
-    alert('Failed to export project')
+    showStatus('✗ Failed to export project', 'error')
   }
 }
 
 const deployToGitHub = async () => {
   try {
+    showStatus('⏳ Deploying to GitHub Pages...', 'info')
+    
     const projectData = builderStore.exportProjectData()
     
     const response = await $fetch('/api/github-deploy', {
@@ -283,10 +325,10 @@ const deployToGitHub = async () => {
       body: projectData
     })
 
-    alert(`Deployed successfully! Your site is live at: ${response.url}`)
+    showStatus(`✓ Deployed successfully! Site: ${response.url}`, 'success')
   } catch (error) {
     console.error('Deploy error:', error)
-    alert('Failed to deploy to GitHub Pages: ' + error.message)
+    showStatus('✗ Failed to deploy to GitHub Pages: ' + error.message, 'error')
   }
 }
 
@@ -458,6 +500,49 @@ const renderBlockHtml = (block) => {
 .canvas-block.selected {
   border-color: var(--primary-color);
   box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.status-message {
+  padding: 0.75rem;
+  border-radius: 0.375rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.status-message.success {
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #10b981;
+}
+
+.status-message.error {
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #ef4444;
+}
+
+.status-message.info {
+  background-color: #dbeafe;
+  color: #1e40af;
+  border: 1px solid #3b82f6;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 </style>
 
