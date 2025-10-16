@@ -7,10 +7,10 @@
     <nav class="landing-nav" role="navigation" aria-label="Main navigation">
       <div class="container">
         <div class="nav-content">
-          <div class="nav-brand">
-            <span class="brand-icon">🎨</span>
+          <NuxtLink to="/" class="nav-brand">
+            <Logo :width="36" :height="36" />
             <span class="brand-name">OnePage AI Builder</span>
-          </div>
+          </NuxtLink>
           <div class="nav-actions">
             <template v-if="user">
               <NuxtLink to="/dashboard" class="nav-link">Dashboard</NuxtLink>
@@ -333,6 +333,8 @@
 </template>
 
 <script setup>
+import Logo from '~/components/ui/Logo.vue'
+
 const { user, signOut } = useSupabase()
 const router = useRouter()
 
@@ -378,10 +380,12 @@ const handleLogout = async () => {
   gap: 0.75rem;
   font-size: 1.25rem;
   font-weight: 700;
+  text-decoration: none;
+  transition: opacity 0.2s;
 }
 
-.brand-icon {
-  font-size: 1.75rem;
+.nav-brand:hover {
+  opacity: 0.8;
 }
 
 .brand-name {

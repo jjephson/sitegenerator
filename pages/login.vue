@@ -5,7 +5,7 @@
       <div class="container">
         <div class="nav-content">
           <NuxtLink to="/" class="nav-brand">
-            <span class="brand-icon">🎨</span>
+            <Logo :width="36" :height="36" />
             <span class="brand-name">OnePage AI Builder</span>
           </NuxtLink>
           <div class="nav-actions">
@@ -147,6 +147,8 @@
 </template>
 
 <script setup>
+import Logo from '~/components/ui/Logo.vue'
+
 const { signIn, signUp, user } = useSupabase()
 const router = useRouter()
 
@@ -254,9 +256,6 @@ const handleSubmit = async () => {
   text-decoration: none;
 }
 
-.brand-icon {
-  font-size: 1.75rem;
-}
 
 .brand-name {
   background: linear-gradient(135deg, #4338ca 0%, #7c3aed 100%);
