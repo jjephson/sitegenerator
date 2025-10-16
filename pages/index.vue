@@ -118,35 +118,6 @@
       </div>
     </section>
 
-    <!-- How It Works Section -->
-    <section class="how-it-works">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">From Idea to Live Site in 3 Steps</h2>
-        </div>
-
-        <div class="steps-grid">
-          <div class="step-card">
-            <div class="step-number">1</div>
-            <h3>Choose & Customize Blocks</h3>
-            <p>Pick from 12 professional blocks: Hero, Features, Pricing, Team, Stats, FAQ, Newsletter, and more. Drag them onto your canvas and customize every detail.</p>
-          </div>
-
-          <div class="step-card">
-            <div class="step-number">2</div>
-            <h3>Design & Preview</h3>
-            <p>Add your colors, images, and content. Use AI to generate compelling copy. Watch your page come to life with real-time preview.</p>
-          </div>
-
-          <div class="step-card">
-            <div class="step-number">3</div>
-            <h3>Deploy & Share</h3>
-            <p>One click to deploy to GitHub Pages or download as a standalone website. Your professional site is ready to share with the world.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Pre-built Blocks Section -->
     <section class="blocks-showcase">
       <div class="container">
@@ -231,67 +202,6 @@
       </div>
     </section>
 
-    <!-- Why Choose Us Section -->
-    <section class="why-choose">
-      <div class="container">
-        <div class="two-column">
-          <div class="column-content">
-            <h2 class="section-title">Why OnePage AI Builder?</h2>
-            <div class="benefit-list">
-              <div class="benefit-item">
-                <div class="benefit-icon">⚡</div>
-                <div>
-                  <h3>Lightning Fast</h3>
-                  <p>Build professional pages in minutes, not days. No coding or design skills required.</p>
-                </div>
-              </div>
-
-              <div class="benefit-item">
-                <div class="benefit-icon">♿</div>
-                <div>
-                  <h3>Accessibility Built-In</h3>
-                  <p>Every page meets WCAG AA standards automatically. Real-time contrast checking prevents issues.</p>
-                </div>
-              </div>
-
-              <div class="benefit-item">
-                <div class="benefit-icon">💾</div>
-                <div>
-                  <h3>Save & Collaborate</h3>
-                  <p>Cloud storage keeps your projects safe. Work from anywhere, on any device.</p>
-                </div>
-              </div>
-
-              <div class="benefit-item">
-                <div class="benefit-icon">📦</div>
-                <div>
-                  <h3>Export Freedom</h3>
-                  <p>Own your code. Download as ZIP or deploy to GitHub Pages. No vendor lock-in.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="column-visual">
-            <div class="visual-box">
-              <div class="visual-stat">
-                <div class="stat-number">12+</div>
-                <div class="stat-label">Pre-built Blocks</div>
-              </div>
-              <div class="visual-stat">
-                <div class="stat-number">100%</div>
-                <div class="stat-label">WCAG AA Compliant</div>
-              </div>
-              <div class="visual-stat">
-                <div class="stat-number">< 5min</div>
-                <div class="stat-label">To First Deploy</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Pricing Section -->
     <section class="pricing-section" id="pricing">
       <div class="container">
@@ -366,6 +276,96 @@
 
         <div class="pricing-footer">
           <p>🎉 All plans come with a 14-day free trial • No credit card required</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">From Idea to Live Site in 3 Steps</h2>
+        </div>
+
+        <div class="steps-grid">
+          <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>Choose & Customize Blocks</h3>
+            <p>Pick from 12 professional blocks: Hero, Features, Pricing, Team, Stats, FAQ, Newsletter, and more. Drag them onto your canvas and customize every detail.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>Design & Preview</h3>
+            <p>Add your colors, images, and content. Use AI to generate compelling copy. Watch your page come to life with real-time preview.</p>
+          </div>
+
+          <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>Deploy & Share</h3>
+            <p>One click to deploy to GitHub Pages or download as a standalone website. Your professional site is ready to share with the world.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-choose">
+      <div class="container">
+        <div class="two-column">
+          <div class="column-content">
+            <h2 class="section-title">Why OnePage AI Builder?</h2>
+            <div class="benefit-list">
+              <div class="benefit-item">
+                <div class="benefit-icon">⚡</div>
+                <div>
+                  <h3>Lightning Fast</h3>
+                  <p>Build professional pages in minutes, not days. No coding or design skills required.</p>
+                </div>
+              </div>
+
+              <div class="benefit-item">
+                <div class="benefit-icon">♿</div>
+                <div>
+                  <h3>Accessibility Built-In</h3>
+                  <p>Every page meets WCAG AA standards automatically. Real-time contrast checking prevents issues.</p>
+                </div>
+              </div>
+
+              <div class="benefit-item">
+                <div class="benefit-icon">💾</div>
+                <div>
+                  <h3>Save & Collaborate</h3>
+                  <p>Cloud storage keeps your projects safe. Work from anywhere, on any device.</p>
+                </div>
+              </div>
+
+              <div class="benefit-item">
+                <div class="benefit-icon">📦</div>
+                <div>
+                  <h3>Export Freedom</h3>
+                  <p>Own your code. Download as ZIP or deploy to GitHub Pages. No vendor lock-in.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="column-visual">
+            <div class="visual-box">
+              <div class="visual-stat">
+                <div class="stat-number">12+</div>
+                <div class="stat-label">Pre-built Blocks</div>
+              </div>
+              <div class="visual-stat">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">WCAG AA Compliant</div>
+              </div>
+              <div class="visual-stat">
+                <div class="stat-number">< 5min</div>
+                <div class="stat-label">To First Deploy</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1042,23 +1042,23 @@ html {
 
 /* Pricing Section */
 .pricing-section {
-  padding: 5rem 0;
+  padding: 4rem 0;
   background-color: #f9fafb;
 }
 
 .pricing-grid-landing {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
-  max-width: 1200px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
 .pricing-card {
   background-color: white;
   border: 2px solid #e5e7eb;
-  border-radius: 1.5rem;
-  padding: 2.5rem;
+  border-radius: 1rem;
+  padding: 1.75rem 1.5rem;
   position: relative;
   transition: all 0.3s;
   display: flex;
@@ -1066,26 +1066,26 @@ html {
 }
 
 .pricing-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 .pricing-card-featured {
   border-color: #4338ca;
-  border-width: 3px;
-  box-shadow: 0 10px 15px -3px rgba(67, 56, 202, 0.2);
+  border-width: 2px;
+  box-shadow: 0 4px 6px -1px rgba(67, 56, 202, 0.2);
 }
 
 .pricing-badge {
   position: absolute;
-  top: -12px;
+  top: -10px;
   left: 50%;
   transform: translateX(-50%);
   background-color: #f3f4f6;
   color: #4b5563;
-  padding: 0.375rem 1rem;
+  padding: 0.25rem 0.875rem;
   border-radius: 9999px;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   font-weight: 600;
   border: 2px solid #e5e7eb;
 }
@@ -1097,34 +1097,34 @@ html {
 }
 
 .pricing-plan-name {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: #111827;
-  margin: 1.5rem 0 1rem;
+  margin: 1rem 0 0.75rem;
   text-align: center;
 }
 
 .pricing-price {
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .price-currency {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: #6b7280;
   vertical-align: super;
 }
 
 .price-amount {
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: 800;
   color: #111827;
   line-height: 1;
 }
 
 .price-period {
-  font-size: 1.125rem;
+  font-size: 1rem;
   color: #6b7280;
   font-weight: 500;
 }
@@ -1132,49 +1132,50 @@ html {
 .pricing-description {
   text-align: center;
   color: #6b7280;
-  margin-bottom: 2rem;
-  font-size: 1rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.875rem;
+  min-height: 2.5rem;
 }
 
 .pricing-features {
   list-style: none;
   padding: 0;
-  margin: 0 0 2rem;
+  margin: 0 0 1.5rem;
   flex-grow: 1;
 }
 
 .pricing-features li {
-  padding: 0.75rem 0;
+  padding: 0.5rem 0;
   color: #4b5563;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  font-size: 0.9375rem;
+  gap: 0.625rem;
+  font-size: 0.875rem;
 }
 
 .feature-check {
   color: #10b981;
   font-weight: 700;
-  font-size: 1.25rem;
+  font-size: 1rem;
   flex-shrink: 0;
 }
 
 .pricing-btn {
   width: 100%;
   text-align: center;
-  padding: 0.875rem 1.5rem;
-  font-size: 1rem;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9375rem;
 }
 
 .pricing-footer {
   text-align: center;
-  margin-top: 3rem;
-  padding-top: 2rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
   border-top: 1px solid #e5e7eb;
 }
 
 .pricing-footer p {
-  font-size: 1rem;
+  font-size: 0.9375rem;
   color: #6b7280;
   font-weight: 500;
 }
