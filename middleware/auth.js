@@ -1,10 +1,18 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
-  const { getSession } = useSupabase()
+  // Skip middleware on server-side during initial load
+  if (process.server) {
+    return
+  }
   
-  const { data } = await getSession()
+  const { user, getSession } = useSupabase()
   
-  if (!data.session) {
-    return navigateTo('/login')
+  // If user state is not set, check session
+  if (!user.value) {
+    const { data } = await getSession()
+    
+    if (!data.session) {
+      return navigateTo('/login')
+    }
   }
 })
 
