@@ -16,10 +16,6 @@
         />
       </div>
 
-      <div v-if="hasUnsavedChanges" class="unsaved-indicator" role="status" aria-live="polite">
-        <span style="font-size: 0.75rem; color: #f59e0b;">● Unsaved changes (auto-saving...)</span>
-      </div>
-      
       <div class="flex gap-1 mb-2">
         <button @click="saveProject" class="btn btn-sm btn-primary" style="flex: 1;" :disabled="saving">
           {{ saving ? '⏳' : '💾' }} {{ saving ? 'Saving...' : 'Save' }}
@@ -734,12 +730,40 @@ const clearLocalStorage = () => {
   }
 }
 
-// Auto-save function
+// Auto-save function (silent, no UI feedback)
 const autoSaveToDatabase = async () => {
   if (!user.value || !hasUnsavedChanges.value) return
   
   try {
-    await saveProject()
+    // Silent save - no status messages
+    const projectData = builderStore.exportProjectData()
+    
+    if (builderStore.projectId) {
+      // Update existing project
+      await supabase
+        .from('projects')
+        .update({
+          name: builderStore.projectName,
+          data: projectData,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', builderStore.projectId)
+    } else {
+      // Insert new project
+      const result = await supabase
+        .from('projects')
+        .insert({
+          user_id: user.value.id,
+          name: builderStore.projectName,
+          data: projectData
+        })
+        .select()
+      
+      if (result.data && result.data[0]) {
+        builderStore.setProjectId(result.data[0].id)
+      }
+    }
+    
     hasUnsavedChanges.value = false
   } catch (error) {
     console.error('Auto-save failed:', error)
@@ -899,24 +923,6 @@ onUnmounted(() => {
   right: 0.5rem;
   font-size: 1.25rem;
   opacity: 0.5;
-}
-
-.unsaved-indicator {
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-  text-align: center;
-  background-color: #fef3c7;
-  border-radius: 0.375rem;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
 }
 
 .status-message {
