@@ -426,7 +426,7 @@
             <h2>Resources</h2>
             <ul class="footer-links">
               <li><a href="/QUICKSTART.md" target="_blank">Quick Start</a></li>
-              <li><a href="/README.md" target="_blank">Documentation</a></li>
+              <li><a href="/DOCUMENTATION.md" target="_blank">Documentation</a></li>
               <li><a href="/TESTING.md" target="_blank">Testing Guide</a></li>
               <li><a href="https://github.com/jjephson/sitegenerator" target="_blank">GitHub</a></li>
             </ul>
@@ -435,10 +435,10 @@
           <div class="footer-col">
             <h2>Company</h2>
             <ul class="footer-links">
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
-              <li><a href="#privacy">Privacy</a></li>
-              <li><a href="#terms">Terms</a></li>
+              <li><NuxtLink to="/about">About</NuxtLink></li>
+              <li><NuxtLink to="/contact">Contact</NuxtLink></li>
+              <li><NuxtLink to="/privacy">Privacy</NuxtLink></li>
+              <li><NuxtLink to="/terms">Terms</NuxtLink></li>
             </ul>
           </div>
         </div>
