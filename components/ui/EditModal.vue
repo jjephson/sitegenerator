@@ -341,6 +341,21 @@
           />
         </div>
       </div>
+      
+      <!-- Validation Error Message (Accessible) -->
+      <div
+        v-if="validationError"
+        class="validation-error"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <strong>❌ Cannot Save: WCAG AA Requirements Not Met</strong>
+        <ul>
+          <li v-for="(error, idx) in validationErrors" :key="idx">{{ error }}</li>
+        </ul>
+        <p><em>Please adjust your colors to meet accessibility standards.</em></p>
+      </div>
 
       <div class="modal-footer">
         <button @click="$emit('close')" class="btn btn-outline">Cancel</button>
@@ -365,6 +380,8 @@ const emit = defineEmits(['close', 'save'])
 
 const formData = ref(JSON.parse(JSON.stringify(props.block.content)))
 const planFeatures = ref([])
+const validationError = ref(false)
+const validationErrors = ref([])
 
 // Initialize plan features for pricing block
 if (props.block.type === 'pricing') {
@@ -531,6 +548,10 @@ const validateContrast = () => {
 }
 
 const save = () => {
+  // Clear previous validation errors
+  validationError.value = false
+  validationErrors.value = []
+  
   // Update plan features before saving
   if (props.block.type === 'pricing') {
     formData.value.plans.forEach((plan, idx) => {
@@ -539,10 +560,20 @@ const save = () => {
   }
   
   // Validate WCAG AA contrast
-  const contrastErrors = validateContrast()
+  const contrastErrorList = validateContrast()
   
-  if (contrastErrors.length > 0) {
-    alert('❌ Cannot save: WCAG AA contrast requirements not met!\n\n' + contrastErrors.join('\n\n') + '\n\nPlease adjust your colors to meet accessibility standards.')
+  if (contrastErrorList.length > 0) {
+    validationError.value = true
+    validationErrors.value = contrastErrorList
+    
+    // Scroll to error message
+    setTimeout(() => {
+      const errorEl = document.querySelector('.validation-error')
+      if (errorEl) {
+        errorEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+      }
+    }, 100)
+    
     return
   }
   
@@ -616,6 +647,45 @@ const save = () => {
   display: flex;
   gap: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+.validation-error {
+  padding: 1rem;
+  margin: 1rem 1.5rem;
+  background-color: #fee2e2;
+  border: 2px solid #ef4444;
+  border-radius: 0.5rem;
+  color: #991b1b;
+  animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+.validation-error strong {
+  display: block;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+}
+
+.validation-error ul {
+  margin: 0.75rem 0;
+  padding-left: 1.5rem;
+  list-style: disc;
+}
+
+.validation-error li {
+  margin: 0.5rem 0;
+  font-size: 0.875rem;
+}
+
+.validation-error p {
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+  font-size: 0.875rem;
 }
 </style>
 
