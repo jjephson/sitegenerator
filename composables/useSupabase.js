@@ -5,11 +5,34 @@ export const useSupabase = () => {
   
   const supabase = createClient(
     config.public.supabaseUrl,
-    config.public.supabaseAnonKey
+    config.public.supabaseAnonKey,
+    {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true,
+        storageKey: 'onepage-builder-auth',
+        storage: process.client ? window.localStorage : undefined
+      }
+    }
   )
 
   const user = useState('user', () => null)
   const isAuthenticated = computed(() => !!user.value)
+  
+  // Initialize session on client-side
+  if (process.client && !user.value) {
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session) {
+        user.value = data.session.user
+      }
+    })
+    
+    // Listen to auth state changes
+    supabase.auth.onAuthStateChange((event, session) => {
+      user.value = session?.user || null
+    })
+  }
 
   // Sign up
   const signUp = async (email, password) => {
