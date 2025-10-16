@@ -33,7 +33,15 @@
         aria-live="polite"
         aria-atomic="true"
       >
-        {{ statusMessage }}
+        <span class="status-text">{{ statusMessage }}</span>
+        <button 
+          @click="statusMessage = ''" 
+          class="status-close"
+          aria-label="Close notification"
+          title="Close"
+        >
+          ✕
+        </button>
       </div>
 
       <div class="block-list">
@@ -190,11 +198,6 @@ const handleSaveBlock = (updatedContent) => {
 const showStatus = (message, type = 'info') => {
   statusMessage.value = message
   statusType.value = type
-  
-  // Auto-hide after 5 seconds
-  setTimeout(() => {
-    statusMessage.value = ''
-  }, 5000)
 }
 
 // Project management
@@ -509,6 +512,42 @@ const renderBlockHtml = (block) => {
   font-size: 0.875rem;
   font-weight: 500;
   animation: slideIn 0.3s ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.status-text {
+  flex: 1;
+}
+
+.status-close {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s, background-color 0.2s;
+}
+
+.status-close:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.status-close:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
 }
 
 @keyframes slideIn {
