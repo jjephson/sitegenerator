@@ -430,14 +430,8 @@ const renderBlockHtml = (block) => {
   }
 }
 
-onMounted(async () => {
-  const { getSession } = useSupabase()
-  const { data } = await getSession()
-  
-  if (!data.session) {
-    router.push('/login')
-  }
-})
+// Session is already handled by auth middleware
+// No need for additional checks on mount
 </script>
 
 <style scoped>
