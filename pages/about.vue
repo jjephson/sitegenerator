@@ -1,14 +1,6 @@
 <template>
   <div class="doc-page">
-    <nav class="doc-nav">
-      <div class="container">
-        <NuxtLink to="/" class="nav-brand">
-          <Logo :width="32" :height="32" />
-          <span>OnePage AI Builder</span>
-        </NuxtLink>
-        <NuxtLink to="/" class="back-link">← Back to Home</NuxtLink>
-      </div>
-    </nav>
+    <AppHeader />
 
     <main class="doc-content">
       <div class="container">
@@ -118,21 +110,13 @@
       </div>
     </main>
 
-    <footer class="doc-footer">
-      <div class="container">
-        <p>© 2025 OnePage AI Builder. All rights reserved.</p>
-        <div class="footer-links">
-          <NuxtLink to="/privacy">Privacy</NuxtLink>
-          <NuxtLink to="/terms">Terms</NuxtLink>
-          <NuxtLink to="/contact">Contact</NuxtLink>
-        </div>
-      </div>
-    </footer>
+    <AppFooter />
   </div>
 </template>
 
 <script setup>
-import Logo from '~/components/ui/Logo.vue'
+import AppHeader from '~/components/layout/AppHeader.vue'
+import AppFooter from '~/components/layout/AppFooter.vue'
 
 useHead({
   title: 'About - OnePage AI Builder',
