@@ -123,6 +123,8 @@
               class="preview-iframe"
               sandbox="allow-same-origin"
               :srcdoc="previewHtml"
+              title="Live preview of your website"
+              aria-label="Website preview window"
             ></iframe>
           </div>
         </div>
