@@ -158,43 +158,43 @@
         <div class="blocks-grid">
           <div class="block-showcase-item">
             <div class="block-icon">🎯</div>
-            <h4>Hero Section</h4>
+            <h3>Hero Section</h3>
             <p>Eye-catching headers with titles, CTAs, logos, and background images</p>
           </div>
 
           <div class="block-showcase-item">
             <div class="block-icon">✨</div>
-            <h4>Features Grid</h4>
+            <h3>Features Grid</h3>
             <p>Showcase your product features with icons and descriptions</p>
           </div>
 
           <div class="block-showcase-item">
             <div class="block-icon">📢</div>
-            <h4>Call to Action</h4>
+            <h3>Call to Action</h3>
             <p>Conversion-focused sections to drive user engagement</p>
           </div>
 
           <div class="block-showcase-item">
             <div class="block-icon">💰</div>
-            <h4>Pricing Tables</h4>
+            <h3>Pricing Tables</h3>
             <p>Beautiful pricing displays with multiple plan options</p>
           </div>
 
           <div class="block-showcase-item">
             <div class="block-icon">💬</div>
-            <h4>Testimonials</h4>
+            <h3>Testimonials</h3>
             <p>Social proof sections with customer reviews and ratings</p>
           </div>
 
           <div class="block-showcase-item">
             <div class="block-icon">📧</div>
-            <h4>Contact Forms</h4>
+            <h3>Contact Forms</h3>
             <p>Professional contact sections to connect with visitors</p>
           </div>
 
           <div class="block-showcase-item">
             <div class="block-icon">📄</div>
-            <h4>Footer</h4>
+            <h3>Footer</h3>
             <p>Complete footers with links, copyright, and social media</p>
           </div>
         </div>
@@ -211,7 +211,7 @@
               <div class="benefit-item">
                 <div class="benefit-icon">⚡</div>
                 <div>
-                  <h4>Lightning Fast</h4>
+                  <h3>Lightning Fast</h3>
                   <p>Build professional pages in minutes, not days. No coding or design skills required.</p>
                 </div>
               </div>
@@ -219,7 +219,7 @@
               <div class="benefit-item">
                 <div class="benefit-icon">♿</div>
                 <div>
-                  <h4>Accessibility Built-In</h4>
+                  <h3>Accessibility Built-In</h3>
                   <p>Every page meets WCAG AA standards automatically. Real-time contrast checking prevents issues.</p>
                 </div>
               </div>
@@ -227,7 +227,7 @@
               <div class="benefit-item">
                 <div class="benefit-icon">💾</div>
                 <div>
-                  <h4>Save & Collaborate</h4>
+                  <h3>Save & Collaborate</h3>
                   <p>Cloud storage keeps your projects safe. Work from anywhere, on any device.</p>
                 </div>
               </div>
@@ -235,7 +235,7 @@
               <div class="benefit-item">
                 <div class="benefit-icon">📦</div>
                 <div>
-                  <h4>Export Freedom</h4>
+                  <h3>Export Freedom</h3>
                   <p>Own your code. Download as ZIP or deploy to GitHub Pages. No vendor lock-in.</p>
                 </div>
               </div>
@@ -293,7 +293,7 @@
           </div>
 
           <div class="footer-col">
-            <h4>Product</h4>
+            <h2>Product</h2>
             <ul class="footer-links">
               <li><a href="#features">Features</a></li>
               <li><NuxtLink to="/login">Dashboard</NuxtLink></li>
@@ -303,7 +303,7 @@
           </div>
 
           <div class="footer-col">
-            <h4>Resources</h4>
+            <h2>Resources</h2>
             <ul class="footer-links">
               <li><a href="/QUICKSTART.md" target="_blank">Quick Start</a></li>
               <li><a href="/README.md" target="_blank">Documentation</a></li>
@@ -313,7 +313,7 @@
           </div>
 
           <div class="footer-col">
-            <h4>Company</h4>
+            <h2>Company</h2>
             <ul class="footer-links">
               <li><a href="#about">About</a></li>
               <li><a href="#contact">Contact</a></li>
@@ -335,6 +335,13 @@
 <script setup>
 const { user, signOut } = useSupabase()
 const router = useRouter()
+
+useHead({
+  title: 'OnePage AI Builder - Build Beautiful Websites with AI',
+  meta: [
+    { name: 'description', content: 'Create stunning, accessible one-page websites with drag-and-drop, AI-powered content generation, and WCAG AA compliance. Deploy in minutes.' }
+  ]
+})
 
 const handleLogout = async () => {
   await signOut()
@@ -619,7 +626,7 @@ const handleLogout = async () => {
   margin-bottom: 1rem;
 }
 
-.block-showcase-item h4 {
+.block-showcase-item h3 {
   font-size: 1.125rem;
   font-weight: 600;
   margin-bottom: 0.75rem;
@@ -667,7 +674,7 @@ const handleLogout = async () => {
   flex-shrink: 0;
 }
 
-.benefit-item h4 {
+.benefit-item h3 {
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
@@ -762,7 +769,7 @@ const handleLogout = async () => {
 /* Footer */
 .landing-footer {
   background-color: #111827;
-  color: #9ca3af;
+  color: #d1d5db;
   padding: 3rem 0 2rem;
 }
 
@@ -789,7 +796,7 @@ const handleLogout = async () => {
   max-width: 300px;
 }
 
-.footer-col h4 {
+.footer-col h2 {
   color: white;
   font-weight: 600;
   margin-bottom: 1rem;
@@ -807,14 +814,14 @@ const handleLogout = async () => {
 }
 
 .footer-links a {
-  color: #9ca3af;
+  color: #d1d5db;
   text-decoration: none;
   transition: color 0.2s;
   font-size: 0.9375rem;
 }
 
 .footer-links a:hover {
-  color: #93c5fd;
+  color: #ffffff;
 }
 
 .footer-bottom {

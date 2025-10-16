@@ -157,6 +157,13 @@ const loading = ref(false)
 const message = ref('')
 const messageType = ref('info')
 
+useHead({
+  title: computed(() => isSignUp.value ? 'Sign Up - OnePage AI Builder' : 'Sign In - OnePage AI Builder'),
+  meta: [
+    { name: 'description', content: 'Sign in to OnePage AI Builder to create beautiful, accessible websites with AI-powered tools.' }
+  ]
+})
+
 // If already logged in, redirect to dashboard
 onMounted(() => {
   if (user.value) {

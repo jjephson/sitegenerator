@@ -9,7 +9,7 @@
       
       <div class="pricing-grid">
         <div class="card">
-          <h3 class="text-center mb-2">Free</h3>
+          <h2 class="text-center mb-2">Free</h2>
           <div class="text-center mb-2">
             <span style="font-size: 3rem; font-weight: bold;">$0</span>
             <span style="color: var(--text-gray);">/month</span>
@@ -28,7 +28,7 @@
           <div style="background: var(--primary-color); color: white; text-align: center; padding: 0.5rem; margin: -1.5rem -1.5rem 1rem -1.5rem; border-radius: 0.5rem 0.5rem 0 0;">
             POPULAR
           </div>
-          <h3 class="text-center mb-2">Pro</h3>
+          <h2 class="text-center mb-2">Pro</h2>
           <div class="text-center mb-2">
             <span style="font-size: 3rem; font-weight: bold;">$19</span>
             <span style="color: var(--text-gray);">/month</span>
@@ -48,7 +48,7 @@
         </div>
 
         <div class="card">
-          <h3 class="text-center mb-2">Enterprise</h3>
+          <h2 class="text-center mb-2">Enterprise</h2>
           <div class="text-center mb-2">
             <span style="font-size: 3rem; font-weight: bold;">$99</span>
             <span style="color: var(--text-gray);">/month</span>
@@ -75,6 +75,13 @@ import { loadStripe } from '@stripe/stripe-js'
 
 definePageMeta({
   middleware: 'auth'
+})
+
+useHead({
+  title: 'Pricing Plans - OnePage AI Builder',
+  meta: [
+    { name: 'description', content: 'Choose the perfect plan for your needs. Upgrade to unlock AI generation, unlimited projects, and GitHub deployment.' }
+  ]
 })
 
 const config = useRuntimeConfig()

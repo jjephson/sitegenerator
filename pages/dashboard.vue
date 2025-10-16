@@ -149,6 +149,13 @@ definePageMeta({
   middleware: 'auth'
 })
 
+useHead({
+  title: 'Dashboard - OnePage AI Builder',
+  meta: [
+    { name: 'description', content: 'Build your website with our drag-and-drop editor, AI content generation, and real-time preview.' }
+  ]
+})
+
 const builderStore = useBuilderStore()
 const { signOut, user, supabase } = useSupabase()
 const router = useRouter()

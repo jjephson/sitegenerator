@@ -7,6 +7,21 @@ export default defineNuxtConfig({
   
   css: ['~/assets/css/main.css'],
   
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'en'
+      },
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1',
+      title: 'OnePage AI Builder - Build Beautiful Websites with AI',
+      meta: [
+        { name: 'description', content: 'Create stunning, accessible one-page websites with drag-and-drop, AI-powered content generation, and WCAG AA compliance. No code required.' },
+        { name: 'theme-color', content: '#4338ca' }
+      ]
+    }
+  },
+  
   runtimeConfig: {
     // Server-side only (private)
     supabaseUrl: process.env.SUPABASE_URL || '',
