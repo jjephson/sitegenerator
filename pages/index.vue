@@ -534,13 +534,31 @@ const handleLogout = async () => {
 /* Hero Section */
 .hero-landing {
   padding: 6rem 0 4rem;
-  background: linear-gradient(180deg, #f9fafb 0%, #ffffff 100%);
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #1e293b 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-landing::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
 }
 
 .hero-content {
   text-align: center;
   max-width: 900px;
   margin: 0 auto;
+  position: relative;
+  z-index: 1;
 }
 
 .hero-title {
@@ -548,11 +566,11 @@ const handleLogout = async () => {
   font-weight: 800;
   line-height: 1.1;
   margin-bottom: 1.5rem;
-  color: #111827;
+  color: #ffffff;
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #4338ca 0%, #7c3aed 100%);
+  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #f472b6 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -560,7 +578,7 @@ const handleLogout = async () => {
 
 .hero-subtitle {
   font-size: 1.375rem;
-  color: #4b5563;
+  color: #e2e8f0;
   margin-bottom: 2.5rem;
   line-height: 1.6;
 }
@@ -1234,12 +1252,12 @@ html {
 
 .btn-outline {
   background-color: transparent;
-  border: 2px solid #4338ca;
-  color: #4338ca;
+  border: 2px solid #ffffff;
+  color: #ffffff;
 }
 
 .btn-outline:hover {
-  background-color: #4338ca;
-  color: white;
+  background-color: #ffffff;
+  color: #1e293b;
 }
 </style>
